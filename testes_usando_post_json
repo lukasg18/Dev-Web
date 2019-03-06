@@ -1,0 +1,108 @@
+alter sequence laboratorio_idlaboratorio_seq restart with 1000;
+
+atendente:
+{
+  "numeroregistro": 244424,  
+  "idpessoa": 10,
+  "idposto":2
+}
+
+estado:
+{
+	"nome":"teste6"
+}
+
+solicitacao:
+{
+  "medicamentoPosto": 25,
+  "data_hora": "2017-07-29 00:00:00 +0000",
+  "titular": 38,
+  "quantidademedicamento": 6,
+  "estadosolicitacao":1
+}
+
+Bairro:
+{
+  "nome": "teste-bairro",  
+  "idmunicipio": 1
+}
+
+Dependente:
+{
+  "idtitular": 49,
+  "idpessoa": 1
+}
+
+laboratorio:
+{
+  "nome": "laboratorio-teste2"
+}
+
+medicamento-posto:
+{
+  "idposto": 2,
+  "datavencimento": "2017-07-29 00:00:00 +0000",
+  "estadomedicamento": 0,
+  "quantidade": 0,
+  "idmedicamento":1
+}
+
+medicamento:
+{
+  "nome": "dorflex",
+  "bula": "nenhuma"
+}
+
+municipio:
+{
+  "nome": "mun-teste",
+  "idestado": 1
+}
+
+Pessoa:
+{
+  "nome": "mun-teste",
+  "sexo": 1,
+  "cpf":"23423423",
+  "datanascimento": "2017-07-29 00:00:00 +0000",
+  "rg": "123123"
+}
+
+posto:
+{
+  "nome": "mun-teste",
+  "complemento": "222",
+  "rua":"23423423",
+  "cep": 2010,
+  "numero": 99,
+  "coordgeolat": 234.4,
+  "coordgeolong": 234.4,
+  "idbairro": 1
+}
+
+recebimento:
+{
+  "idatendente": 9,
+  "data_hora": "2017-07-29 00:00:00 +0000",
+  "idmedicamentoPosto":1,
+  "idpessoa": 2,
+  "quantidademedicamentos": 99
+}
+
+registro-medicamento:
+{
+  "idatendente": 9,
+  "data_hora": "2017-07-29 00:00:00 +0000",
+  "idmedicamentoPosto":1,
+  "idpessoa": 2,
+  "quantidade": 99
+}
+
+titular:
+{
+  "numerosus": 2344,
+  "idpessoa": 1
+}
+
+
+

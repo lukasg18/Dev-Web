@@ -1,0 +1,27 @@
+pessoa
+sexo
+atendente
+posto
+bairro
+municipio
+estado
+laboratorio
+categoria
+lote
+tipocontrole
+estadoSolicitacao
+controle
+solicitacao
+medicamento
+recebimentoMedicamento
+recebimento
+titular
+
+
+
+OBS: FALAR COM MOISES SOBRE A TABELA DEPEDENTE.
+    MOTIVO: FICAR REDUNTANTE;
+            ATENDENTE PODE FAZER RECEBIMENTO, ISTO É, ELE MESMO EFETUA E RECEBE;
+
+Trocar a cardinalidade de pessoa com RECEBIMENTO
+Trocar a cardinalidade de atendente com recebimento_medicamento

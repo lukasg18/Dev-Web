@@ -1,6 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn, BaseEntity } from 'typeorm';
 import { Municipio } from './municipio.entity';
-import { Posto } from './posto.entity';
 
 @Entity()
 export class Bairro extends BaseEntity{
@@ -19,7 +18,4 @@ export class Bairro extends BaseEntity{
   })
   @JoinColumn({name: "idmunicipio"})
   municipio: Municipio;
-
-  @OneToMany(type => Posto, posto => posto.bairro)
-  posto: Posto[];
 }

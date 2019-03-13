@@ -1,7 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn, BaseEntity } from 'typeorm';
-import { Titular } from './titular.entity';
-import { Recebimento } from './recebimento.entity';
-import { Depedente } from './depedente.entity';
 import { Atendente } from './atendente.entity';
 
 export enum SexoEnum {
@@ -33,15 +30,6 @@ export class Pessoa extends BaseEntity{
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################
-
-  @OneToMany(type => Recebimento, recebimento => recebimento.pessoa)
-  recebimento: Recebimento[];
-
-  @OneToMany(type => Titular, titular => titular.pessoa)
-  titular: Titular[];
-
-  @OneToMany(type => Depedente, depedente => depedente.pessoa)
-  depedente: Depedente[];
 
   @OneToMany(type => Atendente, atendente => atendente.pessoa)
   atendente: Atendente[];

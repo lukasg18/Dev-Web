@@ -47,7 +47,6 @@ export class AtendenteService implements IAtendente {
     try {
       atendente.numeroregistro = body.numeroregistro;
       atendente.idpessoa = body.idpessoa;
-      atendente.posto = body.idposto;
       return await Atendente.save(atendente);
     } catch (err) {
       throw new Error(

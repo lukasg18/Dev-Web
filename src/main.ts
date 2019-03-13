@@ -10,7 +10,7 @@ async function bootstrap() {
     .setTitle('Rotas do projeto')
     .setDescription('todas as rotas referentes ao trabalho')
     .setVersion('1.0')
-    .addTag('poo')
+    .addTag('locadora-pessoal')
     .setSchemes('https', 'http')
     .build();
   const document = SwaggerModule.createDocument(app, options);

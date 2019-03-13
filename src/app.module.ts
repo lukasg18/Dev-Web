@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { PooModule } from './poo/poo.module';
+import { LocadoraPessoalModule } from './locadora-pessoal/locadora-pessoal.module';
 @Module({
-  imports: [PooModule]
+  imports: [LocadoraPessoalModule]
 })
 export class AppModule {}

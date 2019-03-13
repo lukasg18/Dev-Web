@@ -24,15 +24,16 @@ export const databaseProviders = [
     provide: 'DbConnectionToken',
     useFactory: async () => await createConnection({
       type: 'postgres',
-      host: 'elmer.db.elephantsql.com',
+      host: 'stampy.db.elephantsql.com',
       port: 5432,
-      username: 'aiexkamd',
-      password: 'QpfBdkd4AT2chCRjdjGbPPoSXdctwU9y',
-      database: 'aiexkamd',
+      username: 'gxiubqwv',
+      password: 'Eor0v0XVSaO5EkcKrqGwSL2tlWo_huxc',
+      database: 'gxiubqwv',
       entities: [
           __dirname + '/../**/*.entity{.ts,.js}',
       ],
-      synchronize: false,
+      dropSchema:true,
+      synchronize: true,
     }),
   },
 ];

@@ -19,20 +19,16 @@ Ao devolver o jogo, ambos irão fazer uma avaliação sobre a locação propriam
 ### 3	RASCUNHOS BÁSICOS DA INTERFACE (MOCKUPS)<br>
 
 [PDF Subsistema para Atendente do posto](https://github.com/lukasg18/Topicos-Trabalho-BD2/blob/master/Prot%C3%B3tipos/Atendente%20Web.pdf)
-![Alt text](https://raw.githubusercontent.com/lukasg18/Topicos-Trabalho-BD2/master/Imagens/Prot%C3%B3tipos/Atendimento_posto.png)
+![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/print-mockup.png)
 
-[PDF Subsistema para solicitação de Medicamentos realizado pela População](https://github.com/lukasg18/Topicos-Trabalho-BD2/blob/master/Prot%C3%B3tipos/Popula%C3%A7%C3%A3o%20WebSite.pdf)
-![Alt text](https://raw.githubusercontent.com/lukasg18/Topicos-Trabalho-BD2/master/Imagens/Prot%C3%B3tipos/Atendimento_populacao.png)
 
 ### 4	MODELO CONCEITUAL<br>
 #### 4.1 NOTACAO ENTIDADE RELACIONAMENTO
-![Alt text](https://raw.githubusercontent.com/lukasg18/Topicos-Trabalho-BD2/master/Imagens/Modelos/Modelo_Conceitual.png)
+![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/diagrama-er.jpeg)
     
 #### 4.2 NOTACAO UML
 
-Subsistema para solicitação de Medicamentos realizado pela População
-![Alt text](https://raw.githubusercontent.com/lukasg18/Topicos-Trabalho-BD2/master/Imagens/Modelos/Diagrama_classes_projeto_AtendimentoPopulacao.png)
+Sistema de locação pessoal
+![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/diagrama-classe.jpeg)
 
-Subsistema para Atendente do posto
-![Alt text](https://raw.githubusercontent.com/lukasg18/Topicos-Trabalho-BD2/master/Imagens/Modelos/Diagrama_classes_projeto_ControleEstoque.png)
 

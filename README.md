@@ -18,7 +18,7 @@ Ao devolver o jogo, ambos irão fazer uma avaliação sobre a locação propriam
 
 ### 3	RASCUNHOS BÁSICOS DA INTERFACE (MOCKUPS)<br>
 
-[PDF Subsistema para Atendente do posto](https://github.com/lukasg18/Topicos-Trabalho-BD2/blob/master/Prot%C3%B3tipos/Atendente%20Web.pdf)
+[PDF Locadora Online](https://drive.google.com/open?id=1Wc59ilOEpQ2x3vQtxK_wmTBi1fc8PFjL)
 ![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/print-mockup.png)
 
 

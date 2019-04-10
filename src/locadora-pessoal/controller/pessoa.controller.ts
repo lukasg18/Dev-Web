@@ -2,7 +2,7 @@ import { Get, Controller, Param, Post, Body, Res, HttpStatus } from '@nestjs/com
 import { PessoaService } from '../service/pessoa.service';
 import { Pessoa } from '../model/pessoa.entity';
 import { ApiUseTags } from '@nestjs/swagger';
-@ApiUseTags('poo')
+@ApiUseTags('locadora-pessoal')
 @Controller()
 export class PessoaController {
   constructor(private readonly pessoaService: PessoaService) {}

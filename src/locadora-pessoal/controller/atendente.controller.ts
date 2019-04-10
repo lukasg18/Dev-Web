@@ -11,7 +11,7 @@ import { AtendenteService } from '../service/atendente.service';
 import { Atendente } from '../model/atendente.entity';
 import { ApiUseTags } from '@nestjs/swagger';
 
-@ApiUseTags('poo')
+@ApiUseTags('locadora-pessoal')
 @Controller()
 export class AtendenteController {
   constructor(private readonly atendenteService: AtendenteService) {}

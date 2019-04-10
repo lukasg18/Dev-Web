@@ -3,7 +3,7 @@ import { BairroService } from '../service/bairro.service';
 import { Bairro } from '../model/bairro.entity';
 import { ApiUseTags } from '@nestjs/swagger';
 
-@ApiUseTags('poo')
+@ApiUseTags('locadora-pessoal')
 @Controller()
 export class BairroController {
   constructor(private readonly bairroService: BairroService) {}

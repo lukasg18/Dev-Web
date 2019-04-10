@@ -19,7 +19,6 @@ export class PessoaService implements genericInterface<Pessoa> {
       pessoa.sexo = body.sexo;
       pessoa.cpf = body.cpf;
       pessoa.datanascimento = body.datanascimento;
-      pessoa.rg = body.rg;
       return await Pessoa.save(pessoa);
     } catch (err) {
       throw new Error(

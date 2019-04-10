@@ -20,8 +20,6 @@ export class Bairro extends BaseEntity{
   @JoinColumn({name: "idmunicipio"})
   municipio: Municipio;
 
-  @OneToMany(type => Cep, cep => cep.bairro, {
-    eager: true, cascade: true, onDelete: "CASCADE"
-  })
+  @OneToMany(type => Cep, cep => cep.bairro)
   cep:Cep[];
 }

@@ -7,7 +7,7 @@ export class Cep extends BaseEntity{
   @PrimaryGeneratedColumn()
   idcep: number;
 
-  @Column({ length: 10 })
+  @Column({ nullable: false })
   numero: number;
 
   //###################################################################

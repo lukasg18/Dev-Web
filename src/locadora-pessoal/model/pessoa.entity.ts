@@ -42,7 +42,7 @@ export class Pessoa extends BaseEntity{
     pontuacao: number;
 
     @Column({ nullable:false })
-    status: statusEnum.ativo;
+    status: statusEnum;
 
   //###################################################################
   //############################ RELAÇÕES #############################

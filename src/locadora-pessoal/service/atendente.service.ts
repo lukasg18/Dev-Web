@@ -1,9 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Atendente } from '../model/atendente.entity';
-import { IAtendente } from './interface/atendente.interface';
 
 @Injectable()
-export class AtendenteService implements IAtendente {
+export class AtendenteService {
   async ValidaUser(body: any) {
     let atendente = new Atendente();
     let buscaPessoa;

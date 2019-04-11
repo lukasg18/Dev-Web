@@ -1,4 +1,12 @@
-import { Get, Controller, Param, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import {
+  Get,
+  Controller,
+  Param,
+  Post,
+  Body,
+  Res,
+  HttpStatus,
+} from '@nestjs/common';
 import { PessoaService } from '../service/pessoa.service';
 import { Pessoa } from '../model/pessoa.entity';
 import { ApiUseTags } from '@nestjs/swagger';
@@ -29,7 +37,19 @@ export class PessoaController {
   }
 
   @Post('/pessoa')
-  public createOne(@Body() body: any) {
-    return this.pessoaService.Create(body);
+  async createOne(@Res() res, @Body() body: any) {
+    try {
+      let pessoa = await this.pessoaService.Create(body);
+      console.log(pessoa)
+      if (pessoa != undefined) {
+        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .send('Nenhum atendente encontrado na busca');
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");
+    }
   }
 }

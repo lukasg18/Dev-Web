@@ -11,6 +11,7 @@ import { BairroController } from './controller/bairro.controller';
 import { MunicipioService } from './service/municipio.service';
 import { MunicipioController } from './controller/municipio.controller';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { CepService } from './service/cep.service';
 
 const modelProvider = [...databaseProviders];
 
@@ -20,6 +21,7 @@ const modelService = [
   EstadoService,
   BairroService,
   MunicipioService,
+  CepService,
 ];
 
 const modelController = [

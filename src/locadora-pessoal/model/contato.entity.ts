@@ -29,4 +29,10 @@ export class Contato extends BaseEntity {
   })
   @JoinColumn({ name: 'idtipocontato' })
   tipocontato: TipoContato;
+
+  @ManyToOne(type => Pessoa, pessoa => pessoa.contato, {
+    eager: true, cascade: true, onDelete: "CASCADE"
+  })
+  @JoinColumn({ name: 'idpessoa' })
+  pessoa: Pessoa;
 }

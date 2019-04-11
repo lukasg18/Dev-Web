@@ -13,7 +13,7 @@ import { createConnection } from 'typeorm';
 //       entities: [
 //           __dirname + '/../**/*.entity{.ts,.js}',
 //       ],
-//       dropSchema:false,
+//       dropSchema:true,
 //       synchronize: true,
 //     }),
 //   },

@@ -5,6 +5,7 @@ import { Cep } from './cep.entity';
 import { Locacao } from './locacao.entity';
 import { PessoaJogo } from './pessoa_jogo.entity';
 import { CartaoCredito } from './cartao-credito.entity';
+import { Contato } from './contato.entity';
 
 export enum SexoEnum {
   Masculino = 0,
@@ -58,6 +59,9 @@ export class Pessoa extends BaseEntity{
 
   @OneToMany(type => PessoaJogo, pessoajogo => pessoajogo.pessoa)
   pessoajogo: PessoaJogo[];
+
+  @OneToMany(type => Contato, contato => contato.pessoa)
+  contato: Contato[];
 
   @OneToMany(type => CartaoCredito, cartao => cartao.pessoa)
   cartao: CartaoCredito[];

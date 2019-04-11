@@ -9,24 +9,21 @@ import {
   BaseEntity,
 } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
-import { TipoContato } from './tipo-contato.entity';
+import { Contato } from './contato.entity';
 
 
 @Entity()
-export class Contato extends BaseEntity {
+export class TipoContato extends BaseEntity {
   @PrimaryColumn()
   idcontato: number;
 
-  @Column({ nullable: false })
-  descricao: string;
+  @Column({ nullable: false})
+  nome: string;
 
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToOne(type => TipoContato, tipocontato => tipocontato.contato, {
-    eager: true, cascade: true, onDelete: "CASCADE"
-  })
-  @JoinColumn({ name: 'idtipocontato' })
-  tipocontato: TipoContato;
+  @OneToMany(type => Contato, contato => contato.tipocontato)
+  contato: Contato;
 }

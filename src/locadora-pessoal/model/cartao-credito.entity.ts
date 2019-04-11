@@ -13,20 +13,29 @@ import { TipoContato } from './tipo-contato.entity';
 
 
 @Entity()
-export class Contato extends BaseEntity {
+export class CartaoCredito extends BaseEntity {
   @PrimaryColumn()
-  idcontato: number;
+  idcartao: number;
 
   @Column({ nullable: false })
-  descricao: string;
+  nome: string;
+
+  @Column({ nullable: false })
+  numero: string;
+
+  @Column({ nullable: false })
+  datavencimento: Date;
+
+  @Column({ nullable: false })
+  codigo: number;
 
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToOne(type => TipoContato, tipocontato => tipocontato.contato, {
+  @ManyToOne(type => Pessoa, pessoa => pessoa.cartao, {
     eager: true, cascade: true, onDelete: "CASCADE"
   })
-  @JoinColumn({ name: 'idtipocontato' })
-  tipocontato: TipoContato;
+  @JoinColumn({ name: 'idpessoa' })
+  pessoa: Pessoa;
 }

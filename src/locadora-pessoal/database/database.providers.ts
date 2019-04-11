@@ -8,8 +8,8 @@ import { createConnection } from 'typeorm';
 //       host: 'localhost',
 //       port: 5432,
 //       username: 'postgres',
-//       password: '123',
-//       database: 'postgres',
+//       password: '123456',
+//       database: 'web',
 //       entities: [
 //           __dirname + '/../**/*.entity{.ts,.js}',
 //       ],
@@ -32,8 +32,8 @@ export const databaseProviders = [
       entities: [
           __dirname + '/../**/*.entity{.ts,.js}',
       ],
-      dropSchema:false,
-      synchronize: false,
+      dropSchema:true,
+      synchronize: true,
     }),
   },
 ];

@@ -24,11 +24,11 @@ Ao devolver o jogo, ambos irão fazer uma avaliação sobre a locação propriam
 
 ### 4	MODELO CONCEITUAL<br>
 #### 4.1 NOTACAO ENTIDADE RELACIONAMENTO
-![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/diagrama-er.jpeg)
+![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/9ff510ce-f9e8-4ed2-a01b-e0ed6b342e81.png)
     
 #### 4.2 NOTACAO UML
 
 Sistema de locação pessoal
-![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/diagrama-classe.jpeg)
+![Alt text](https://raw.githubusercontent.com/lukasg18/Dev-Web/master/imagens/Diagrama_classes.png)
 
 

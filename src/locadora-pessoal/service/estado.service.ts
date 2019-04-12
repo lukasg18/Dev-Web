@@ -8,19 +8,20 @@ export class EstadoService{
     return await Estado.find();
   }
 
-  async readOne(id: number) {
-    return await Estado.findOne({ idestado: id });
+  async readOne(nome: string) {
+    return await Estado.findOne({ nome: nome });
   }
 
   async Create(body: any) {
     let estado = new Estado();
     try {
-      let nome = body.nome;
-      return await Estado.createQueryBuilder()
-      .insert()
-      .into(Estado)
-      .values([{nome: nome}])
-      .execute()
+      let busca = await Estado.findOne({ nome: body.estado });
+      if (busca != undefined) {
+        return busca;
+      } else {
+      estado.nome = body.estado;
+      return await Estado.save(estado);
+      }
     } catch (err) {
       throw new Error(
         `Erro ao verificar estado\n Erro: ${err.name}\n Mensagem: ${

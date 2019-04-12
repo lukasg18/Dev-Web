@@ -1,5 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Cep } from '../model/cep.entity';
+import { BairroService } from './bairro.service';
+import { Bairro } from '../model/bairro.entity';
 
 @Injectable()
 export class CepService {
@@ -14,12 +16,16 @@ export class CepService {
   async Create(body: any) {
     let cep = new Cep();
     let busca: any;
+    let bairroservice = new BairroService();
+    let bairro = new Bairro();
     try {
       busca = await Cep.findOne({ numero: body.cep });
       if (busca != undefined) {
         return busca;
       } else {
+        bairro = await bairroservice.readOne(body.bairro)
         cep.numero = body.cep;
+        cep.bairro = bairro;
         return await Cep.save(cep);
       }
     } catch (err) {

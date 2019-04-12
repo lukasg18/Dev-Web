@@ -1,23 +1,33 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Bairro } from '../model/bairro.entity';
 import { genericInterface } from './interface/generic.interface';
+import { MunicipioService } from './municipio.service';
+import { Municipio } from '../model/municipio.entity';
 
 @Injectable()
-export class BairroService implements genericInterface<Bairro> {
+export class BairroService {
   async readAll() {
     return await Bairro.find();
   }
 
-  async readOne(id: number) {
-    return await Bairro.findOne({ idbairro: id });
+  async readOne(nome: string) {
+    return await Bairro.findOne({ nome: nome });
   }
 
   async Create(body: any) {
+    let bairro = new Bairro();
+    let municipioService = new MunicipioService();
+    let municipio = new Municipio();
     try {
-      let bairro = new Bairro();
-      bairro.nome = body.nome;
-      bairro.municipio = body.idmunicipio;
-      return await Bairro.save(bairro);
+      let busca = await Bairro.findOne({ nome: body.bairro });
+      if (busca != undefined) {
+        return busca;
+      } else {
+        municipio = await municipioService.readOne(body.municipio);
+        bairro.nome = body.bairro;
+        bairro.municipio = municipio;
+        return await Bairro.save(bairro);
+      }
     } catch (err) {
       throw new Error(
         `Erro ao verificar bairro\n Erro: ${err.name}\n Mensagem: ${

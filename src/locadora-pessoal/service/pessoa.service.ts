@@ -1,11 +1,11 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Pessoa } from '../model/pessoa.entity';
 import { genericInterface } from './interface/generic.interface';
-import { Estado } from 'locadora-pessoal/model/estado.entity';
-import { Municipio } from 'locadora-pessoal/model/municipio.entity';
-import { Bairro } from 'locadora-pessoal/model/bairro.entity';
 import { Cep } from '../model/cep.entity';
 import { CepService } from './cep.service';
+import { EstadoService } from './estado.service';
+import { MunicipioService } from './municipio.service';
+import { BairroService } from './bairro.service';
 
 @Injectable()
 export class PessoaService implements genericInterface<Pessoa> {
@@ -20,11 +20,16 @@ export class PessoaService implements genericInterface<Pessoa> {
   async Create(body: any): Promise<Pessoa | any> {
     let pessoa = new Pessoa();
     let cepservice = new CepService();
+    let estadoservice = new EstadoService();
+    let municipioservice = new MunicipioService()
+    let bairroservice = new BairroService()
     let cep = new Cep();
     try {
+      await estadoservice.Create(body);
+      await municipioservice.Create(body);
+      await bairroservice.Create(body);
       await cepservice.Create(body)
       cep = await cepservice.readOne(body.cep)
-      console.log(cep)
       pessoa.nome = body.nome;
       pessoa.sexo = body.sexo;
       pessoa.cpf = body.cpf;

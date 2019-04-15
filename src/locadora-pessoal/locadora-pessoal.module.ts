@@ -10,8 +10,9 @@ import { BairroService } from './service/bairro.service';
 import { BairroController } from './controller/bairro.controller';
 import { MunicipioService } from './service/municipio.service';
 import { MunicipioController } from './controller/municipio.controller';
-import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CepService } from './service/cep.service';
+import { AutenticacaoService } from './service/autenticacao.service';
+import { AutenticacaoController } from './controller/Autenticacao.controller';
 
 const modelProvider = [...databaseProviders];
 
@@ -22,6 +23,7 @@ const modelService = [
   BairroService,
   MunicipioService,
   CepService,
+  AutenticacaoService
 ];
 
 const modelController = [
@@ -30,6 +32,7 @@ const modelController = [
   EstadoController,
   BairroController,
   MunicipioController,
+  AutenticacaoController
  ];
 
 @Module({

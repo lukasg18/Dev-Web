@@ -16,10 +16,7 @@ export class Autenticacao extends BaseEntity {
   @PrimaryColumn()
   idpessoa: number;
 
-  @Column({ nullable: false, length: 15, unique: true })
-  login: string;
-
-  @Column({ nullable: false, length: 30})
+  @Column({ nullable: false})
   senha: string;
 
   //###################################################################

@@ -28,6 +28,9 @@ export class Pessoa extends BaseEntity{
 
     @Column({ length: 100 })
     nomeusuario: string;
+
+    @Column({ length: 100 })
+    email: string;
   
     @Column({ nullable:false })
     datanascimento: Date;

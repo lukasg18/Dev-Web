@@ -6,6 +6,7 @@ import { CepService } from './cep.service';
 import { EstadoService } from './estado.service';
 import { MunicipioService } from './municipio.service';
 import { BairroService } from './bairro.service';
+import { AutenticacaoService } from './autenticacao.service';
 
 @Injectable()
 export class PessoaService {
@@ -23,6 +24,7 @@ export class PessoaService {
     let estadoservice = new EstadoService();
     let municipioservice = new MunicipioService();
     let bairroservice = new BairroService();
+    let authservice = new AutenticacaoService();
     let busca = new Pessoa();
     let cep = new Cep();
     try {
@@ -32,7 +34,6 @@ export class PessoaService {
       await cepservice.Create(body);
 
       busca = await this.readOne(body.cpf);
-      console.log(busca)
       if (busca != undefined) {
         return this.Update(body, busca);
       } else {
@@ -42,11 +43,14 @@ export class PessoaService {
         pessoa.cpf = body.cpf;
         pessoa.cep = cep;
         pessoa.datanascimento = body.datanascimento;
-        pessoa.pontuacao = body.pontuacao;
+        pessoa.pontuacao = 5;
         pessoa.nomeusuario = body.nomeusuario;
+        pessoa.email = body.email;
         pessoa.datanascimento = body.datanascimento;
-        pessoa.status = body.status;
-        return await Pessoa.save(pessoa);
+        pessoa.status = 0;
+        await Pessoa.save(pessoa);
+        await authservice.Create(body)
+        return "ok"
       }
     } catch (err) {
       throw new Error(
@@ -83,10 +87,11 @@ export class PessoaService {
       busca.sexo = body.sexo;
       busca.cep = cep;
       busca.datanascimento = body.datanascimento;
-      busca.pontuacao = body.pontuacao;
+      busca.email = body.email;
+      busca.pontuacao = 5;
       busca.nomeusuario = body.nomeusuario;
       busca.datanascimento = body.datanascimento;
-      busca.status = body.status;
+      busca.status = 0;
       return await Pessoa.save(busca);
     } catch (err) {
       throw new Error(

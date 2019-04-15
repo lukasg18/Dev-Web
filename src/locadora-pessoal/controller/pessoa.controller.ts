@@ -40,7 +40,6 @@ export class PessoaController {
   async createOne(@Res() res, @Body() body: any) {
     try {
       let pessoa = await this.pessoaService.Create(body);
-      console.log(pessoa)
       if (pessoa != undefined) {
         res.status(HttpStatus.OK).send("cadastrado com sucesso!");
       } else {
@@ -49,7 +48,7 @@ export class PessoaController {
           .send('Nenhum atendente encontrado na busca');
       }
     } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");
+      res.status(HttpStatus.BAD_GATEWAY).send(err);
     }
   }
 

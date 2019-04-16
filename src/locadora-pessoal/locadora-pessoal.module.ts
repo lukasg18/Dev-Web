@@ -13,6 +13,10 @@ import { MunicipioController } from './controller/municipio.controller';
 import { CepService } from './service/cep.service';
 import { AutenticacaoService } from './service/autenticacao.service';
 import { AutenticacaoController } from './controller/Autenticacao.controller';
+import { GeneroService } from './service/genero.service';
+import { PlataformaService } from './service/plataforma.service';
+import { GeneroController } from './controller/genero.controller';
+import { PlataformaController } from './controller/plataforma.controller';
 
 const modelProvider = [...databaseProviders];
 
@@ -23,7 +27,9 @@ const modelService = [
   BairroService,
   MunicipioService,
   CepService,
-  AutenticacaoService
+  AutenticacaoService,
+  GeneroService,
+  PlataformaService
 ];
 
 const modelController = [
@@ -32,7 +38,9 @@ const modelController = [
   EstadoController,
   BairroController,
   MunicipioController,
-  AutenticacaoController
+  AutenticacaoController,
+  GeneroController,
+  PlataformaController
  ];
 
 @Module({

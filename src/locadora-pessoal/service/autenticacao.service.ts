@@ -17,13 +17,11 @@ export class AutenticacaoService {
       pessoa = await pessoaService.readOne(body.cpf);
       if (pessoa != undefined) {
         busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });
-        if (busca != undefined) {
-          senha = await bcrypt.compareSync(body.senha, busca.senha);
-          if (senha) {
-            return 'OK';
-          } else {
-            return 'Senha incorreta';
-          }
+        senha = await bcrypt.compareSync(body.senha, busca.senha);
+        if (senha) {
+          return 'OK';
+        } else {
+          return 'Senha incorreta';
         }
       } else {
         return 'nome de usuario incorreto';

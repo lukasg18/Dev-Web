@@ -6,25 +6,25 @@ import {
   JoinColumn,
   BaseEntity,
 } from 'typeorm';
-import { Avaliacao } from './avaliacao.entity';
+import { Pagamento } from './pagamento.entity';
 
 @Entity()
-export class Observacao extends BaseEntity {
+export class ModalidadePagamento extends BaseEntity {
   @PrimaryGeneratedColumn()
-  idobservacao: number;
+  idmodalidadepagamento: number;
 
   @Column({ nullable: false })
-  descricao: string;
+  nome: string;
 
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToOne(type => Avaliacao, avaliacao => avaliacao.observacao, {
+  @ManyToOne(type => Pagamento, pagamento => pagamento.modalidadepagamento, {
     eager: true,
     cascade: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'idlocacao' })
-  avaliacao: Avaliacao;
+  @JoinColumn({ name: 'idpagamento' })
+  pagamento: Pagamento;
 }

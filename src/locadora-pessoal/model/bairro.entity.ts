@@ -1,9 +1,17 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn, BaseEntity } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+  BaseEntity,
+} from 'typeorm';
 import { Municipio } from './municipio.entity';
 import { Cep } from './cep.entity';
 
 @Entity()
-export class Bairro extends BaseEntity{
+export class Bairro extends BaseEntity {
   @PrimaryGeneratedColumn()
   idbairro: number;
 
@@ -15,11 +23,13 @@ export class Bairro extends BaseEntity{
   //###################################################################
 
   @ManyToOne(type => Municipio, municipio => municipio.bairro, {
-    eager: true, cascade: true, onDelete: "CASCADE"
+    eager: true,
+    cascade: true,
+    onDelete: 'CASCADE',
   })
-  @JoinColumn({name: "idmunicipio"})
+  @JoinColumn({ name: 'idmunicipio' })
   municipio: Municipio;
 
   @OneToMany(type => Cep, cep => cep.bairro)
-  cep:Cep[];
+  cep: Cep[];
 }

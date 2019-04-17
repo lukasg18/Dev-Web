@@ -1,7 +1,6 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   ManyToOne,
   OneToMany,
   JoinColumn,
@@ -11,11 +10,6 @@ import {
 import { Pessoa } from './pessoa.entity';
 import { Jogo } from './jogo.entity';
 import { Locacao } from './locacao.entity';
-
-export enum statusEnum {
-  disponivel = 1,
-  indisponivel = 0,
-} 
 
 @Entity()
 export class PessoaJogo extends BaseEntity {
@@ -29,7 +23,7 @@ export class PessoaJogo extends BaseEntity {
   preco: number;
 
   @Column({ nullable: false})
-  status: statusEnum;
+  vitrine: boolean;
 
   //###################################################################
   //############################ RELAÇÕES #############################

@@ -2,20 +2,36 @@ import {
   Entity,
   Column,
   ManyToOne,
-  JoinColumn,
   PrimaryColumn,
   BaseEntity,
 } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 
+export enum recorrenciaEnum {
+  mes = 0,
+  trimestral = 1,
+  anual = 2
+}
 
 @Entity()
-export class Autenticacao extends BaseEntity {
+export class Assinatura extends BaseEntity {
   @PrimaryColumn()
-  idpessoa: number;
+  idassinatura: number;
 
   @Column({ nullable: false})
-  senha: string;
+  datacontrato: Date;
+
+  @Column({ nullable: false})
+  vigencia: Date;
+
+  @Column({ nullable: false})
+  recorrencia: recorrenciaEnum;
+
+  @Column({ nullable: false})
+  status: boolean;
+
+  @Column({ nullable: false})
+  renovacaoautomatica: boolean;
 
   //###################################################################
   //############################ RELAÇÕES #############################
@@ -24,6 +40,5 @@ export class Autenticacao extends BaseEntity {
   @ManyToOne(type => Pessoa, pessoa => pessoa.autenticacao, {
     eager: true, cascade: true, onDelete: "CASCADE"
   })
-  @JoinColumn({ name: 'idpessoa' })
   pessoa: Pessoa;
 }

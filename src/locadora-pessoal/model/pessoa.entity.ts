@@ -6,6 +6,7 @@ import { Locacao } from './locacao.entity';
 import { PessoaJogo } from './pessoa_jogo.entity';
 import { CartaoCredito } from './cartao-credito.entity';
 import { Contato } from './contato.entity';
+import { Assinatura } from './assinatura.entity';
 
 export enum SexoEnum {
   Masculino = 0,
@@ -68,6 +69,9 @@ export class Pessoa extends BaseEntity{
 
   @OneToMany(type => CartaoCredito, cartao => cartao.pessoa)
   cartao: CartaoCredito[];
+
+  @OneToMany(type => Assinatura, assinatura => assinatura.pessoa)
+  assinatura: Assinatura[];
 
   @ManyToOne(type => Cep, cep => cep.pessoa, {
     eager: true, cascade: true, onDelete: "CASCADE"

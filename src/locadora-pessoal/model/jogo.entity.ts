@@ -19,6 +19,9 @@ export class Jogo extends BaseEntity {
   @Column({ nullable: false})
   anolancamento: Date;
 
+  @Column({ nullable: false})
+  urlimagem: Date;
+
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################

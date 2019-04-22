@@ -4,13 +4,14 @@ import {
   OneToMany,
   PrimaryColumn,
   BaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PessoaJogo } from './pessoa_jogo.entity';
 
 
 @Entity()
 export class Jogo extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   idjogo: number;
 
   @Column({ nullable: false})
@@ -20,7 +21,7 @@ export class Jogo extends BaseEntity {
   anolancamento: Date;
 
   @Column({ nullable: false})
-  urlimagem: Date;
+  urlimagem: string;
 
   //###################################################################
   //############################ RELAÇÕES #############################

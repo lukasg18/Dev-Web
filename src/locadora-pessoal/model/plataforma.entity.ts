@@ -5,13 +5,14 @@ import {
   BaseEntity,
   JoinTable,
   ManyToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Jogo } from './jogo.entity';
 
 
 @Entity()
 export class Plataforma extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   idplataforma: number;
 
   @Column({ nullable: false})

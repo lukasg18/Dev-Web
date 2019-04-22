@@ -5,13 +5,14 @@ import {
   JoinColumn,
   PrimaryColumn,
   BaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 
 
 @Entity()
 export class CartaoCredito extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   idcartao: number;
 
   @Column({ nullable: false })

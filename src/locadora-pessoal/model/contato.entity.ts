@@ -5,6 +5,7 @@ import {
   JoinColumn,
   PrimaryColumn,
   BaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 import { TipoContato } from './tipo-contato.entity';
@@ -12,7 +13,7 @@ import { TipoContato } from './tipo-contato.entity';
 
 @Entity()
 export class Contato extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   idcontato: number;
 
   @Column({ nullable: false })

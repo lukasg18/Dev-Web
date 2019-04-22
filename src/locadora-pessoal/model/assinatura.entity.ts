@@ -4,6 +4,7 @@ import {
   ManyToOne,
   PrimaryColumn,
   BaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 
@@ -15,7 +16,7 @@ export enum recorrenciaEnum {
 
 @Entity()
 export class Assinatura extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   idassinatura: number;
 
   @Column({ nullable: false})

@@ -4,14 +4,15 @@ import {
   OneToMany,
   PrimaryColumn,
   BaseEntity,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Contato } from './contato.entity';
 
 
 @Entity()
 export class TipoContato extends BaseEntity {
-  @PrimaryColumn()
-  idcontato: number;
+  @PrimaryGeneratedColumn()
+  idtipocontato: number;
 
   @Column({ nullable: false})
   nome: string;

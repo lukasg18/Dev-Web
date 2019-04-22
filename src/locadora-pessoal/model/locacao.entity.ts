@@ -6,6 +6,7 @@ import {
   BaseEntity,
   ManyToOne,
   JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PessoaJogo } from './pessoa_jogo.entity';
 import { Pessoa } from './pessoa.entity';
@@ -19,7 +20,7 @@ export enum statusEnum {
 
 @Entity()
 export class Locacao extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   idlocacao: number;
 
   @Column({ nullable: false})

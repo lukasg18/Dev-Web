@@ -17,6 +17,8 @@ import { GeneroService } from './service/genero.service';
 import { PlataformaService } from './service/plataforma.service';
 import { GeneroController } from './controller/genero.controller';
 import { PlataformaController } from './controller/plataforma.controller';
+import { JogoService } from './service/jogo.service';
+import { JogoController } from './controller/jogo.controller';
 
 const modelProvider = [...databaseProviders];
 
@@ -29,7 +31,8 @@ const modelService = [
   CepService,
   AutenticacaoService,
   GeneroService,
-  PlataformaService
+  PlataformaService,
+  JogoService
 ];
 
 const modelController = [
@@ -40,7 +43,8 @@ const modelController = [
   MunicipioController,
   AutenticacaoController,
   GeneroController,
-  PlataformaController
+  PlataformaController,
+  JogoController
  ];
 
 @Module({

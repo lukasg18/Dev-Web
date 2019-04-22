@@ -23,16 +23,4 @@ export class Plataforma extends BaseEntity {
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToMany(type => Jogo, {eager:true, cascade: true, onDelete: "CASCADE"})
-  @JoinTable({
-    name: 'jogo_plataforma',
-    joinColumn: {
-      name: 'idplataforma',
-    },
-    inverseJoinColumn: {
-      name: 'idjogo',
-    },
-  })
-  jogo: Jogo[];
-
 }

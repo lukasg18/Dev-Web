@@ -23,16 +23,4 @@ export class Genero extends BaseEntity {
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToMany(type => Jogo, {eager:true, cascade: true, onDelete: "CASCADE"})
-  @JoinTable({
-    name: 'jogo_genero',
-    joinColumn: {
-      name: 'idgenero',
-    },
-    inverseJoinColumn: {
-      name: 'idjogo',
-    },
-  })
-  jogo: Jogo[];
-
 }

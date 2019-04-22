@@ -48,11 +48,7 @@ INSERT INTO public.plataforma(
 
 INSERT INTO public.jogo_genero(
             idgenero, idjogo)
-    VALUES (3, 1);
-
-    INSERT INTO public.jogo_genero(
-            idgenero, idjogo)
-    VALUES (4, 4);
+    VALUES (1, 3);
 
 INSERT INTO public.jogo_genero(
             idgenero, idjogo)
@@ -60,15 +56,15 @@ INSERT INTO public.jogo_genero(
 
     INSERT INTO public.jogo_genero(
             idgenero, idjogo)
-    VALUES (3, 2);
+    VALUES (2, 3);
 
     INSERT INTO public.jogo_genero(
             idgenero, idjogo)
-    VALUES (4, 2);
+    VALUES (2, 4);
 
 INSERT INTO public.jogo_genero(
             idgenero, idjogo)
-    VALUES (4, 3);
+    VALUES (3, 4);
 
     INSERT INTO public.jogo_genero(
             idgenero, idjogo)
@@ -80,15 +76,7 @@ INSERT INTO public.jogo_genero(
 
     INSERT INTO public.jogo_genero(
             idgenero, idjogo)
-    VALUES (1, 4);
-
-INSERT INTO public.jogo_plataforma(
-            idplataforma, idjogo)
-    VALUES (2, 1);
-
-INSERT INTO public.jogo_plataforma(
-            idplataforma, idjogo)
-    VALUES (3, 1);
+    VALUES (4, 1);
 
 INSERT INTO public.jogo_plataforma(
             idplataforma, idjogo)
@@ -96,15 +84,15 @@ INSERT INTO public.jogo_plataforma(
 
 INSERT INTO public.jogo_plataforma(
             idplataforma, idjogo)
+    VALUES (1, 3);
+
+INSERT INTO public.jogo_plataforma(
+            idplataforma, idjogo)
+    VALUES (2, 1);
+
+INSERT INTO public.jogo_plataforma(
+            idplataforma, idjogo)
     VALUES (2, 2);
-
-INSERT INTO public.jogo_plataforma(
-            idplataforma, idjogo)
-    VALUES (3, 2);
-
-INSERT INTO public.jogo_plataforma(
-            idplataforma, idjogo)
-    VALUES (4, 2);
 
 INSERT INTO public.jogo_plataforma(
             idplataforma, idjogo)
@@ -112,9 +100,17 @@ INSERT INTO public.jogo_plataforma(
 
 INSERT INTO public.jogo_plataforma(
             idplataforma, idjogo)
+    VALUES (2, 4);
+
+INSERT INTO public.jogo_plataforma(
+            idplataforma, idjogo)
+    VALUES (3, 2);
+
+INSERT INTO public.jogo_plataforma(
+            idplataforma, idjogo)
     VALUES (3, 3);
 
 INSERT INTO public.jogo_plataforma(
             idplataforma, idjogo)
-    VALUES (3, 4);
+    VALUES (4, 3);
 

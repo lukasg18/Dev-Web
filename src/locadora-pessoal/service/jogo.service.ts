@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Genero } from '../model/genero.entity';
 import { Jogo } from '../model/jogo.entity';
+import { Plataforma } from '../model/plataforma.entity';
 
 @Injectable()
 export class JogoService{
@@ -15,7 +16,7 @@ export class JogoService{
     )
     .innerJoin('jogo.plataforma', 'plataforma')
     .innerJoin('jogo.genero', 'genero')
-    .where("estado.uf ILIKE :jogo", { jogo: nome })
+    .where("jogo.nome ILIKE :jogo", { jogo: `%${nome}%` })
     .getRawMany()
 
   }

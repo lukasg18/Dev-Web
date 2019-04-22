@@ -5,6 +5,7 @@ import {
   ManyToOne,
   JoinColumn,
   BaseEntity,
+  OneToMany,
 } from 'typeorm';
 import { Pagamento } from './pagamento.entity';
 
@@ -20,11 +21,9 @@ export class ModalidadePagamento extends BaseEntity {
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToOne(type => Pagamento, pagamento => pagamento.modalidadepagamento, {
-    eager: true,
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'idpagamento' })
-  pagamento: Pagamento;
+  @OneToMany(
+    type => Pagamento,
+    pagamento => pagamento.modalidadepagamento,
+  )
+  pagamento: Pagamento[];
 }

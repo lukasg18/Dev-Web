@@ -3,12 +3,15 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
+  BaseEntity,
+  ManyToMany,
+  JoinTable,
   ManyToOne,
   JoinColumn,
-  BaseEntity,
 } from 'typeorm';
 import { Locacao } from './locacao.entity';
 import { ModalidadePagamento } from './modalidade-pagamento.entity';
+import { Assinatura } from './assinatura.entity';
 
 export enum tipoPagamento {
   locacao = 1,
@@ -33,17 +36,37 @@ export class Pagamento extends BaseEntity {
   //############################ RELAÇÕES #############################
   //###################################################################
 
-  @ManyToOne(type => Locacao, locacao => locacao.pagamento, {
+  @ManyToMany(type => Locacao, {eager:true, cascade: true, onDelete: "CASCADE"})
+  @JoinTable({
+    name: 'pagamento_locacao',
+    joinColumn: {
+      name: 'idpagamento',
+    },
+    inverseJoinColumn: {
+      name: 'idlocacao',
+    },
+  })
+  locacao: Locacao[];
+
+  @ManyToMany(type => Assinatura, {eager:true, cascade: true, onDelete: "CASCADE"})
+  @JoinTable({
+    name: 'pagamento_assinatura',
+    joinColumn: {
+      name: 'idpagamento',
+    },
+    inverseJoinColumn: {
+      name: 'idassinatura',
+    },
+  })
+  assinatura: Assinatura[];
+ 
+
+  @ManyToOne(type => ModalidadePagamento, modalidadepagamento => modalidadepagamento.pagamento, {
     eager: true,
     cascade: true,
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'idlocacao' })
-  locacao: Locacao;
-
-  @OneToMany(
-    type => ModalidadePagamento,
-    modalidadepagamento => modalidadepagamento.pagamento,
-  )
+  @JoinColumn({ name: 'idmodalidadepagamento' })
   modalidadepagamento: ModalidadePagamento;
+
 }

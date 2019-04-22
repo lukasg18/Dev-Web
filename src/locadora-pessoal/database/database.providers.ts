@@ -27,7 +27,7 @@ export const databaseProviders = [
       host: 'stampy.db.elephantsql.com',
       port: 5432,
       username: 'gxiubqwv',
-      password: 'Eor0v0XVSaO5EkcKrqGwSL2tlWo_huxc',
+      password: acess(),
       database: 'gxiubqwv',
       entities: [
           __dirname + '/../**/*.entity{.ts,.js}',
@@ -37,3 +37,7 @@ export const databaseProviders = [
     }),
   },
 ];
+
+function acess(): string {
+  return 'Eor0v0XVSaO5EkcKrqGwSL2tlWo_huxc';
+}

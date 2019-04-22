@@ -51,8 +51,5 @@ export class Locacao extends BaseEntity {
   @OneToMany(type => Avaliacao, avaliacao => avaliacao.locacao)
   avaliacao:Avaliacao[]
 
-  @OneToMany(type => Pagamento, pagamento => pagamento.locacao)
-  pagamento:Pagamento[]
-
 
 }

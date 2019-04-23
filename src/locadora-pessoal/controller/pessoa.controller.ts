@@ -10,7 +10,7 @@ import {
 import { PessoaService } from '../service/pessoa.service';
 import { Pessoa } from '../model/pessoa.entity';
 import { ApiUseTags } from '@nestjs/swagger';
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Pessoa')
 @Controller()
 export class PessoaController {
   constructor(private readonly pessoaService: PessoaService) {}

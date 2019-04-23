@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { PlataformaService } from '../service/plataforma.service';
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Plataforma')
 @Controller()
 export class PlataformaController {
   constructor(private readonly plataformaService: PlataformaService) {}

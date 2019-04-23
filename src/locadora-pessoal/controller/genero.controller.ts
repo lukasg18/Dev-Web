@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Genero')
 @Controller()
 export class GeneroController {
   constructor(private readonly generoService: GeneroService) {}

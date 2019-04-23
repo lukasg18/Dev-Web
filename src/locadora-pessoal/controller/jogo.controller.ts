@@ -10,7 +10,7 @@ import {
 import { ApiUseTags } from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
 import { JogoService } from '../service/jogo.service';
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Jogo')
 @Controller()
 export class JogoController {
   constructor(private readonly jogoService: JogoService) {}
@@ -20,10 +20,10 @@ export class JogoController {
     return this.jogoService.readAll();
   }
 
-  @Get('/jogo/:nome')
-  async readOne(@Res() res, @Param() nome) {
+  @Get('/jogo/:nome/:pag')
+  async readOne(@Res() res, @Param() nome, @Param() pag) {
     try {
-      let jogo = await this.jogoService.searchByName(nome.nome)
+      let jogo = await this.jogoService.searchByName(nome.nome, pag.pag)
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send(jogo);
       } else {

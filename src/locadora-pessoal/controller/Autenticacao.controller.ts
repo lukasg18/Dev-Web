@@ -11,7 +11,7 @@ import { PessoaService } from '../service/pessoa.service';
 import { Pessoa } from '../model/pessoa.entity';
 import { ApiUseTags } from '@nestjs/swagger';
 import { AutenticacaoService } from '../service/autenticacao.service';
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Autenticacao')
 @Controller()
 export class AutenticacaoController {
   constructor(private readonly authService: AutenticacaoService) {}

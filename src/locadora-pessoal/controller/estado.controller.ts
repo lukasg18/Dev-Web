@@ -3,7 +3,7 @@ import { EstadoService } from '../service/estado.service';
 import { Estado } from '../model/estado.entity';
 import { ApiUseTags } from '@nestjs/swagger';
 
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Estado')
 @Controller()
 export class EstadoController {
   constructor(private readonly estadoService: EstadoService) {}

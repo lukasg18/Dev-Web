@@ -2,23 +2,29 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Genero } from '../model/genero.entity';
 import { Jogo } from '../model/jogo.entity';
 import { Plataforma } from '../model/plataforma.entity';
+import { Like } from 'typeorm';
 
 @Injectable()
-export class JogoService{
+export class JogoService {
   async readAll() {
     return await Jogo.find();
   }
 
-  async searchByName(nome: string) {
-    return Jogo.createQueryBuilder('jogo')
-    .select(
-      'jogo.nome, jogo.anolancamento, plataforma.nome as plataforma, genero.nome as genero',
-    )
-    .innerJoin('jogo.plataforma', 'plataforma')
-    .innerJoin('jogo.genero', 'genero')
-    .where("jogo.nome ILIKE :jogo", { jogo: `%${nome}%` })
-    .getRawMany()
-
+  async searchByName(nome: string, pag: number) {
+    return Jogo.find({
+      where: "Jogo.nome ILIKE '%" + nome + "%'",
+      skip: pag * 10,
+      take: 10,
+    });
+    // return Jogo.find({where: {nome: Like(`%${nome}%`)}})
+    // createQueryBuilder('jogo')
+    // .select(
+    //   'jogo.nome, jogo.anolancamento, plataforma.nome as plataforma, genero.nome as genero',
+    // )
+    // .innerJoin('jogo.plataforma', 'plataforma')
+    // .innerJoin('jogo.genero', 'genero')
+    // .where("jogo.nome ILIKE :jogo", { jogo: `%${nome}%` })
+    // .getRawMany()
   }
 
   async Create(body: any) {
@@ -29,7 +35,7 @@ export class JogoService{
         return busca;
       } else {
         jogo.nome = body.genero;
-      return await Jogo.save(jogo);
+        return await Jogo.save(jogo);
       }
     } catch (err) {
       throw new Error(

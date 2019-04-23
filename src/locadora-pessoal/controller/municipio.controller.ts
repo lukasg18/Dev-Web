@@ -3,7 +3,7 @@ import { MunicipioService } from '../service/municipio.service';
 import { Municipio } from '../model/municipio.entity';
 import { ApiUseTags } from '@nestjs/swagger';
 
-@ApiUseTags('locadora-pessoal')
+@ApiUseTags('Municipio')
 @Controller()
 export class MunicipioController {
   constructor(private readonly municipioService: MunicipioService) {}

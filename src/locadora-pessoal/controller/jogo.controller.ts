@@ -6,6 +6,7 @@ import {
   Body,
   Res,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { ApiUseTags } from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
@@ -16,20 +17,16 @@ export class JogoController {
   constructor(private readonly jogoService: JogoService) {}
 
   @Get('/jogo')
-  root(): any {
-    return this.jogoService.readAll();
-  }
-
-  @Get('/jogo/:nome/:pag')
-  async readOne(@Res() res, @Param() params) {
+  async readOne(@Res() res, @Query() query) {
+    console.log(query)
     try {
-      let jogo = await this.jogoService.searchByFull(params)
+      let jogo = await this.jogoService.searchByFull(query)
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send(jogo);
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .send('Nenhum jogo encontrado na busca');
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
@@ -45,7 +42,7 @@ export class JogoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .send('Nenhum jogo encontrado na busca');
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
@@ -62,7 +59,7 @@ export class JogoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .send('Nenhum jogo encontrado na busca');
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");

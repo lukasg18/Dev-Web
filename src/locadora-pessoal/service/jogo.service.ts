@@ -11,7 +11,6 @@ export class JogoService {
   }
 
   async searchByFull(params) {
-    let x = "''";
     return Jogo.find({
       join: {
         alias: 'jogo',
@@ -20,27 +19,30 @@ export class JogoService {
           plataforma: 'jogo.plataforma',
         },
       },
-      where:
-        "jogo.nome ILIKE '%" +
-        params.nome +
-        "%' and genero.nome ILIKE '%" +
-        params.genero +
-        "%'" +
-        " and plataforma.nome ILIKE '%" +
-        params.plataforma +
-        "%'",
+      where: this.getWhere(params),
       skip: params.pag * 10,
       take: 10,
     });
-    // return Jogo.find({where: {nome: Like(`%${nome}%`)}})
-    // createQueryBuilder('jogo')
-    // .select(
-    //   'jogo.nome, jogo.anolancamento, plataforma.nome as plataforma, genero.nome as genero',
-    // )
-    // .innerJoin('jogo.plataforma', 'plataforma')
-    // .innerJoin('jogo.genero', 'genero')
-    // .where("jogo.nome ILIKE :jogo", { jogo: `%${nome}%` })
-    // .getRawMany()
+  }
+
+  getWhere(query) {
+    const keysPermitidas = ['jogo', 'genero', 'plataforma'];
+    let where = '';
+    Object.keys(query)
+      .filter(key => keysPermitidas.indexOf(key) !== -1)
+      .forEach(key => {
+        if (Array.isArray(query[key])) {
+          query[key].forEach(element => {
+            where += `${key}.nome ILIKE '%${element}%' or `;
+          });
+          where = where.substr(0, where.length - 3);
+          where += 'and ';
+        } else {
+          where += `${key}.nome ILIKE '%${query[key]}%' and `;
+        }
+      });
+    console.log(where);
+    return where.substr(0, where.length - 4);
   }
 
   async searchByParams(nome: string, pag: number) {

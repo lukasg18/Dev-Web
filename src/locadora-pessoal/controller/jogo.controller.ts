@@ -23,7 +23,7 @@ export class JogoController {
   @Get('/jogo/:nome/:pag')
   async readOne(@Res() res, @Param() params) {
     try {
-      let jogo = await this.jogoService.searchByName(params)
+      let jogo = await this.jogoService.searchByFull(params)
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send(jogo);
       } else {

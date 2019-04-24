@@ -10,9 +10,17 @@ export class JogoService {
     return await Jogo.find();
   }
 
-  async searchByName(nome: string, pag: number) {
+  async searchByName({nome, pag}) {
+    let x = "''";
     return Jogo.find({
-      where: "Jogo.nome ILIKE '%" + nome + "%'",
+      join: {
+        alias: "jogo",
+        leftJoinAndSelect: {
+            genero: "jogo.genero",
+            plataforma: "jogo.plataforma"
+        }
+    },
+      where: "genero.nome ILIKE '%" + (nome || x) + "%'",
       skip: pag * 10,
       take: 10,
     });
@@ -25,6 +33,17 @@ export class JogoService {
     // .innerJoin('jogo.genero', 'genero')
     // .where("jogo.nome ILIKE :jogo", { jogo: `%${nome}%` })
     // .getRawMany()
+  }
+
+  async searchByParams(nome: string, pag: number) {
+    return Jogo.createQueryBuilder('jogo')
+    .select(
+      'jogo.nome, jogo.anolancamento, plataforma.nome as plataforma, genero.nome as genero',
+    )
+    .innerJoin('jogo.plataforma', 'plataforma')
+    .innerJoin('jogo.genero', 'genero')
+    .where("jogo.nome ILIKE :jogo", { jogo: `%${nome}%` })
+    .getRawMany()
   }
 
   async Create(body: any) {

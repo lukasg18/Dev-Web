@@ -34,7 +34,7 @@ export class Jogo extends BaseEntity {
   @OneToMany(type => PessoaJogo, pessoajogo => pessoajogo.jogo)
   pessoajogo: PessoaJogo;
 
-  @ManyToMany(type => Genero, {eager:true, cascade: true, onDelete: "CASCADE"})
+  @ManyToMany(type => Genero, { cascade: true, onDelete: "CASCADE"})
   @JoinTable({
     name: 'jogo_genero',
     joinColumn: {
@@ -46,7 +46,7 @@ export class Jogo extends BaseEntity {
   })
   genero: Genero[];
 
-  @ManyToMany(type => Plataforma, {eager:true, cascade: true, onDelete: "CASCADE"})
+  @ManyToMany(type => Plataforma, {cascade: true, onDelete: "CASCADE"})
   @JoinTable({
     name: 'jogo_plataforma',
     joinColumn: {

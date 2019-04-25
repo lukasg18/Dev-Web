@@ -32,11 +32,12 @@ export class JogoService {
       .filter(key => keysPermitidas.indexOf(key) !== -1)
       .forEach(key => {
         if (Array.isArray(query[key])) {
+          where +='( '
           query[key].forEach(element => {
             where += `${key}.nome ILIKE '%${element}%' or `;
           });
           where = where.substr(0, where.length - 3);
-          where += 'and ';
+          where += ') and ';
         } else {
           where += `${key}.nome ILIKE '%${query[key]}%' and `;
         }

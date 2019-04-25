@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Genero } from '../model/genero.entity';
 import { Jogo } from '../model/jogo.entity';
 import { Plataforma } from '../model/plataforma.entity';
-import { Like } from 'typeorm';
+import { PlataformaService } from './plataforma.service';
+import { GeneroService } from './genero.service';
 
 @Injectable()
 export class JogoService {
@@ -32,7 +32,7 @@ export class JogoService {
       .filter(key => keysPermitidas.indexOf(key) !== -1)
       .forEach(key => {
         if (Array.isArray(query[key])) {
-          where +='( '
+          where += '( ';
           query[key].forEach(element => {
             where += `${key}.nome ILIKE '%${element}%' or `;
           });
@@ -59,12 +59,22 @@ export class JogoService {
 
   async Create(body: any) {
     let jogo = new Jogo();
+    let plataformaService = new PlataformaService();
+    let generoService = new GeneroService();
+    let plataforma = new Plataforma();
+    let gen;
     try {
+      await plataformaService.Create(body.plataforma);
+      await generoService.Create(body.genero);
+
       let busca = await Jogo.findOne({ nome: body.jogo });
       if (busca != undefined) {
         return busca;
       } else {
-        jogo.nome = body.genero;
+
+        jogo.genero = body.genero;
+        jogo.plataforma = body.plataforma;
+        jogo.nome = body.jogo;
         return await Jogo.save(jogo);
       }
     } catch (err) {

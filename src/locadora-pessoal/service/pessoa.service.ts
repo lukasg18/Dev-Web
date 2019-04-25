@@ -46,7 +46,6 @@ export class PessoaService {
         pessoa.pontuacao = 5;
         pessoa.nomeusuario = body.nomeusuario;
         pessoa.email = body.email;
-        pessoa.datanascimento = body.datanascimento;
         pessoa.status = 0;
         await Pessoa.save(pessoa);
         await authservice.Create(body)

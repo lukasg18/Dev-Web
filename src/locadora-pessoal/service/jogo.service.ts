@@ -3,6 +3,7 @@ import { Jogo } from '../model/jogo.entity';
 import { Plataforma } from '../model/plataforma.entity';
 import { PlataformaService } from './plataforma.service';
 import { GeneroService } from './genero.service';
+import { Genero } from '../model/genero.entity';
 
 @Injectable()
 export class JogoService {
@@ -57,24 +58,34 @@ export class JogoService {
       .getRawMany();
   }
 
-  async Create(body: any) {
+  async Create(body: any): Promise<Jogo | any> {
     let jogo = new Jogo();
     let plataformaService = new PlataformaService();
     let generoService = new GeneroService();
-    let plataforma = new Plataforma();
-    let gen;
+    let plataforma = new Array<Plataforma>();
+    let genero = new Array<Genero>();
+    let busca = new Jogo();
     try {
-      await plataformaService.Create(body.plataforma);
-      await generoService.Create(body.genero);
+      await plataformaService.Create(body);
+      await generoService.Create(body);
 
-      let busca = await Jogo.findOne({ nome: body.jogo });
+      busca = await Jogo.findOne({ nome: body.jogo });
       if (busca != undefined) {
         return busca;
       } else {
 
-        jogo.genero = body.genero;
-        jogo.plataforma = body.plataforma;
+        genero.push(await generoService.readOne(body.genero));
+        console.log(genero)
+        plataforma.push(await plataformaService.readOne(body.plataforma));
+        jogo.genero = genero
+        jogo.plataforma = plataforma
+        console.log(jogo)
+
+
         jogo.nome = body.jogo;
+        jogo.urlimagem = body.url;
+        jogo.anolancamento = body.data;
+        console.log(jogo)
         return await Jogo.save(jogo);
       }
     } catch (err) {

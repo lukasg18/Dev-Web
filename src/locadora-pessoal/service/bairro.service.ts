@@ -37,20 +37,8 @@ export class BairroService {
     }
   }
 
-  async Drop(body) {
-    try {
-      let b = new Bairro();
-      let busca;
-      b.nome = body.nome;
-      busca = await Bairro.findOne({ nome: b.nome });
-      return await Bairro.remove(busca);
-    } catch (err) {
-      throw new Error(
-        `Erro ao remover bairro\n Erro: ${err.name}\n Mensagem: ${
-          err.message
-        }\n Os parametros estao certos?`,
-      );
-    }
+  Drop(body: any){
+    throw new Error('Method not implemented.');
   }
 
   async Update(body) {

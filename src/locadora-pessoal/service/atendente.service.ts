@@ -3,36 +3,7 @@ import { Atendente } from '../model/atendente.entity';
 
 @Injectable()
 export class AtendenteService {
-  async ValidaUser(body: any) {
-    let atendente = new Atendente();
-    let buscaPessoa;
-    let buscaAtendente;
-    try {
-      atendente.numeroregistro = body.numeroregistro;
-      buscaAtendente = await Atendente.findOne({numeroregistro: atendente.numeroregistro});
-      if(buscaAtendente == undefined){
-        return {"numeroregistro": false, "rg": false};
-      }else{
-        buscaPessoa = buscaAtendente.pessoa;
-        if(buscaPessoa.rg == body.rg){
-          return {"numeroregistro": true, "rg": true};
-        }else{
-          return {"numeroregistro": true, "rg": false};
-        }
-      }
-    } catch (err) {
-      throw new Error(
-        `Erro ao verificar atedente\n Erro: ${err.name}\n Mensagem: ${
-          err.message
-        }\n Os parametros estao certos?`,
-      );
-    }
-  }
-
-  buscaRegistro(numeroregistro): Promise<Atendente | any> {
-    return Atendente.findOne({ numeroregistro: numeroregistro });
-  }
-
+  
   async readAll(): Promise<Atendente[] | any> {
     return Atendente.find();
   }
@@ -50,24 +21,6 @@ export class AtendenteService {
     } catch (err) {
       throw new Error(
         `Erro ao salvar atedente\n Erro: ${err.name}\n Mensagem: ${
-          err.message
-        }\n Os parametros estao certos?`,
-      );
-    }
-  }
-
-  async Drop(body: any): Promise<Atendente> {
-    let atedente = new Atendente();
-    let busca;
-    atedente.numeroregistro = body.numeroregistro;
-    try {
-      busca = await Atendente.findOne({
-        numeroregistro: atedente.numeroregistro,
-      });
-      return await Atendente.remove(busca);
-    } catch (err) {
-      throw new Error(
-        `Erro ao deletar atedente\n Erro: ${err.name}\n Mensagem: ${
           err.message
         }\n Os parametros estao certos?`,
       );

@@ -1,0 +1,54 @@
+{
+    "cpf":"12556",
+    "email":"lucas@lucas.com",
+    "bairro":"Valparaiso",
+    "municipio":"Serra",
+    "estado":"ES",
+    "nome":"Lucas Gomes",
+    "nomeusuario":"lucas",
+    "cep":123123,
+    "datanascimento":"12-12-12",
+    "sexo": 0,
+    "senha":"123"
+  }
+  {
+    "cpf":"12",
+    "email":"carlos@carlos.com",
+    "bairro":"Feu Rosa",
+    "municipio":"Serra",
+    "nomeusuario":"carlos",
+    "estado":"ES",
+    "nome":"Carlos",
+    "cep":123123,
+    "datanascimento":"12-12-12",
+    "sexo": 0,
+    "senha":"123"
+  }
+  {
+    "cpf":"1255",
+    "email":"jose@jose.com",
+    "bairro":"Goiabeiras",
+    "municipio":"Vitória",
+    "estado":"ES",
+    "nomeusuario":"jose",
+    "nome":"Jose",
+    "cep":123123,
+    "datanascimento":"12-12-12",
+    "sexo": 0,
+    "senha":"123"
+  }
+  {
+    "cpf":"125",
+    "email":"ana@ana.com",
+    "bairro":"Maruípe",
+    "municipio":"Vitória",
+    "estado":"ES",
+    "nome":"Ana",
+    "cep":123123,
+    "nomeusuario":"ana",
+    "datanascimento":"12-12-12",
+    "sexo": 0,
+    "senha":"123"
+  }
+
+  

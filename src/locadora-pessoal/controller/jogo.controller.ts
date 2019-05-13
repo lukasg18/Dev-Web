@@ -18,7 +18,6 @@ export class JogoController {
 
   @Get('/jogo')
   async readOne(@Res() res, @Query() query) {
-    console.log(query)
     try {
       let jogo = await this.jogoService.searchByFull(query)
       if (jogo != undefined) {

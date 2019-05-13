@@ -30,6 +30,15 @@ export class Jogo extends BaseEntity {
   @Column({ nullable: false})
   urlimagem: string;
 
+  @Column({ nullable: false})
+  classificacao: string;
+
+  @Column({ nullable: false})
+  multiplayer: boolean;
+
+  @Column({ nullable: false})
+  produtora: string;
+
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################

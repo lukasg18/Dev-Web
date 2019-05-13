@@ -43,7 +43,6 @@ export class JogoService {
           where += `${key}.nome ILIKE '%${query[key]}%' and `;
         }
       });
-    console.log(where);
     return where.substr(0, where.length - 4);
   }
 

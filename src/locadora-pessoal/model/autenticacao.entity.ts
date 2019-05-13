@@ -14,10 +14,10 @@ export class Autenticacao extends BaseEntity {
   @PrimaryColumn()
   idpessoa: number;
 
-  @Column({ nullable: false})
+  @Column({nullable:true})
   senha: string;
 
-  @Column({ nullable: false})
+  @Column({nullable:true})
   facebook: string;
 
   //###################################################################

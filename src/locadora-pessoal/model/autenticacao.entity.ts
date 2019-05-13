@@ -17,6 +17,9 @@ export class Autenticacao extends BaseEntity {
   @Column({ nullable: false})
   senha: string;
 
+  @Column({ nullable: false})
+  facebook: string;
+
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################

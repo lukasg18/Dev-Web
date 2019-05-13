@@ -16,16 +16,10 @@ export class CartaoCredito extends BaseEntity {
   idcartao: number;
 
   @Column({ nullable: false })
-  nome: string;
+  hash: string;
 
   @Column({ nullable: false })
   numero: string;
-
-  @Column({ nullable: false })
-  datavencimento: Date;
-
-  @Column({ nullable: false })
-  codigo: number;
 
   //###################################################################
   //############################ RELAÇÕES #############################

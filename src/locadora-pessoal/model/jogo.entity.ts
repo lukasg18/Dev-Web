@@ -21,6 +21,9 @@ export class Jogo extends BaseEntity {
   @Column({ nullable: false})
   nome: string;
 
+  @Column({type:"text", nullable: false})
+  descricao: string;
+
   @Column({ nullable: false})
   anolancamento: Date;
 

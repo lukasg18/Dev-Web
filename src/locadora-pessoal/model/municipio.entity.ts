@@ -23,6 +23,7 @@ export class Municipio extends BaseEntity {
   //###################################################################
 
   @ManyToOne(type => Estado, estado => estado.municipio, {
+    eager: true,
     cascade: true,
     onDelete: 'CASCADE',
   })

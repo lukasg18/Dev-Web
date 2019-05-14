@@ -30,7 +30,7 @@ export class PessoaJogo extends BaseEntity {
   //###################################################################
 
   @ManyToOne(type => Jogo, jogo => jogo.pessoajogo, {
-    eager: true, cascade: true, onDelete: "CASCADE"
+    cascade: true, onDelete: "CASCADE"
   })
   @JoinColumn({ name: 'idjogo' })
   jogo: Jogo;

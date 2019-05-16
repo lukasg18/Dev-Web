@@ -17,7 +17,7 @@ export class AutenticacaoService {
       pessoa = await pessoaService.readOne(body.cpf);
       if (pessoa != undefined) {
         busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });
-        senha = await bcrypt.compareSync(body.senha, busca.senha);
+        senha = bcrypt.compareSync(body.senha, busca.senha);
         if (senha) {
           return 'OK';
         } else {

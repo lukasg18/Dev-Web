@@ -18,12 +18,12 @@ export class MunicipioService {
     let estadoService = new EstadoService();
     let estado = new Estado();
     try {
-      let busca = await Municipio.findOne({ nome: body.municipio });
+      let busca = await Municipio.findOne({ nome: body.cep.bairro.municipio.nome });
       if (busca != undefined) {
         return busca;
       } else {
-        estado = await estadoService.readOne(body.estado)
-        municipio.nome = body.municipio;
+        estado = await estadoService.readOne(body.cep.bairro.municipio.estado.nome)
+        municipio.nome = body.cep.bairro.municipio.nome;
         municipio.estado = estado
         return await Municipio.save(municipio);
       }

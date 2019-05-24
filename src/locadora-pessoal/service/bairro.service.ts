@@ -19,12 +19,12 @@ export class BairroService {
     let municipioService = new MunicipioService();
     let municipio = new Municipio();
     try {
-      let busca = await Bairro.findOne({ nome: body.bairro });
+      let busca = await Bairro.findOne({ nome: body.cep.bairro.nome });
       if (busca != undefined) {
         return busca;
       } else {
-        municipio = await municipioService.readOne(body.municipio);
-        bairro.nome = body.bairro;
+        municipio = await municipioService.readOne(body.cep.bairro.municipio.nome);
+        bairro.nome = body.cep.bairro.nome;
         bairro.municipio = municipio;
         return await Bairro.save(bairro);
       }

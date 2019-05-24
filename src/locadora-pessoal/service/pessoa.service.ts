@@ -37,7 +37,7 @@ export class PessoaService {
       if (busca != undefined) {
         return this.Update(body, busca);
       } else {
-        cep = await cepservice.readOne(body.cep);
+        cep = await cepservice.readOne(body.cep.numero);
         pessoa.nome = body.nome;
         pessoa.sexo = body.sexo;
         pessoa.cpf = body.cpf;
@@ -81,7 +81,7 @@ export class PessoaService {
     let cepservice = new CepService();
     let cep = new Cep();
     try {
-      cep = await cepservice.readOne(body.cep);
+      cep = await cepservice.readOne(body.cep.numero);
       busca.nome = body.nome;
       busca.sexo = body.sexo;
       busca.cep = cep;

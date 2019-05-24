@@ -19,12 +19,12 @@ export class CepService {
     let bairroservice = new BairroService();
     let bairro = new Bairro();
     try {
-      busca = await Cep.findOne({ numero: body.cep });
+      busca = await Cep.findOne({ numero: body.cep.numero });
       if (busca != undefined) {
         return busca;
       } else {
-        bairro = await bairroservice.readOne(body.bairro)
-        cep.numero = body.cep;
+        bairro = await bairroservice.readOne(body.cep.bairro.nome)
+        cep.numero = body.cep.numero;
         cep.bairro = bairro;
         return await Cep.save(cep);
       }

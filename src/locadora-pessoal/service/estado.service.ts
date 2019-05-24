@@ -15,11 +15,11 @@ export class EstadoService{
   async Create(body: any) {
     let estado = new Estado();
     try {
-      let busca = await Estado.findOne({ nome: body.estado });
+      let busca = await Estado.findOne({ nome: body.cep.bairro.municipio.estado.nome });
       if (busca != undefined) {
         return busca;
       } else {
-      estado.nome = body.estado;
+      estado.nome = body.cep.bairro.municipio.estado.nome;
       return await Estado.save(estado);
       }
     } catch (err) {

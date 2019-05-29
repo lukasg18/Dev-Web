@@ -61,30 +61,31 @@ export class JogoService {
     let jogo = new Jogo();
     let plataformaService = new PlataformaService();
     let generoService = new GeneroService();
-    let plataforma = new Array<Plataforma>();
-    let genero = new Array<Genero>();
     let busca = new Jogo();
     try {
-      await plataformaService.Create(body);
-      await generoService.Create(body);
+      for (let index = 0; index < body.plataforma.length; index++) {
+        await plataformaService.Create(body.plataforma[index]);
+      } 
+
+      for (let index = 0; index < body.genero.length; index++) {
+        await generoService.Create(body.genero[index]);
+      } 
 
       busca = await Jogo.findOne({ nome: body.jogo });
       if (busca != undefined) {
         return busca;
       } else {
+        jogo.genero = body.genero;
+        jogo.plataforma = body.plataforma;
 
-        genero.push(await generoService.readOne(body.genero));
-        console.log(genero)
-        plataforma.push(await plataformaService.readOne(body.plataforma));
-        jogo.genero = genero
-        jogo.plataforma = plataforma
-        console.log(jogo)
-
-
-        jogo.nome = body.jogo;
-        jogo.urlimagem = body.url;
-        jogo.anolancamento = body.data;
-        console.log(jogo)
+        jogo.nome = body.nome;
+        jogo.descricao = body.descricao;
+        jogo.urlimagem = body.urlimagem;
+        jogo.anolancamento = body.anolancamento;
+        jogo.classificacao = body.classificacao;
+        jogo.multiplayer = body.multiplayer;
+        jogo.produtora = body.produtora;
+        console.log(jogo);
         return await Jogo.save(jogo);
       }
     } catch (err) {

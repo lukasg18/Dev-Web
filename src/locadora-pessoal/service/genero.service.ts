@@ -14,11 +14,11 @@ export class GeneroService{
   async Create(body: any) {
     let genero = new Genero();
     try {
-      let busca = await Genero.findOne({ nome: body.genero });
+      let busca = await Genero.findOne({ nome: body.nome });
       if (busca != undefined) {
         return busca;
       } else {
-      genero.nome = body.genero;
+      genero.nome = body.nome;
       return await Genero.save(genero);
       }
     } catch (err) {

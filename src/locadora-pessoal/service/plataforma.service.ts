@@ -14,11 +14,11 @@ export class PlataformaService{
   async Create(body: any) {
     let plataforma = new Plataforma();
     try {
-      let busca = await Plataforma.findOne({ nome: body.plataforma });
+      let busca = await Plataforma.findOne({ nome: body.nome });
       if (busca != undefined) {
         return busca;
       } else {
-      plataforma.nome = body.plataforma;
+      plataforma.nome = body.nome;
       return await Plataforma.save(plataforma);
       }
     } catch (err) {

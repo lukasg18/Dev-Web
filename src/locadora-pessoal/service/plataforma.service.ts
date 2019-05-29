@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Plataforma } from '../model/plataforma.entity';
 
 @Injectable()
-export class PlataformaService{
+export class PlataformaService {
   async readAll() {
     return await Plataforma.find();
   }
@@ -15,11 +15,13 @@ export class PlataformaService{
     let plataforma = new Plataforma();
     try {
       let busca = await Plataforma.findOne({ nome: body.nome });
+      console.log(busca);
       if (busca != undefined) {
         return busca;
       } else {
-      plataforma.nome = body.nome;
-      return await Plataforma.save(plataforma);
+        console.log("entrei")
+        plataforma.nome = body.nome;
+        return await Plataforma.save(plataforma);
       }
     } catch (err) {
       throw new Error(

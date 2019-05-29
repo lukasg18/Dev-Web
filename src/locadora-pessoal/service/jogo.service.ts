@@ -71,7 +71,7 @@ export class JogoService {
         await generoService.Create(body.genero[index]);
       } 
 
-      busca = await Jogo.findOne({ nome: body.jogo });
+      busca = await Jogo.findOne({ nome: body.nome });
       if (busca != undefined) {
         return busca;
       } else {

@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Genero } from '../model/genero.entity';
 
 @Injectable()
-export class GeneroService{
+export class GeneroService {
   async readAll() {
     return await Genero.find();
   }
@@ -16,10 +16,11 @@ export class GeneroService{
     try {
       let busca = await Genero.findOne({ nome: body.nome });
       if (busca != undefined) {
+        console.log(busca)
         return busca;
       } else {
-      genero.nome = body.nome;
-      return await Genero.save(genero);
+        genero.nome = body.nome;
+        return await Genero.save(genero);
       }
     } catch (err) {
       throw new Error(

@@ -47,9 +47,10 @@ export class PessoaService {
         pessoa.nomeusuario = body.nomeusuario;
         pessoa.email = body.email;
         pessoa.status = 0;
+        pessoa.urlimagem = body.urlimagem;
         await Pessoa.save(pessoa);
         await authservice.Create(body)
-        return "ok"
+        return pessoa
       }
     } catch (err) {
       throw new Error(
@@ -80,18 +81,22 @@ export class PessoaService {
   async Update(body: any, busca: Pessoa): Promise<Pessoa> {
     let cepservice = new CepService();
     let cep = new Cep();
+    let authservice = new AutenticacaoService();
     try {
       cep = await cepservice.readOne(body.cep.numero);
       busca.nome = body.nome;
       busca.sexo = body.sexo;
+      busca.cpf = body.cpf;
       busca.cep = cep;
       busca.datanascimento = body.datanascimento;
-      busca.email = body.email;
       busca.pontuacao = 5;
       busca.nomeusuario = body.nomeusuario;
-      busca.datanascimento = body.datanascimento;
+      busca.email = body.email;
       busca.status = 0;
-      return await Pessoa.save(busca);
+      busca.urlimagem = body.urlimagem;
+      await Pessoa.save(busca);
+      await authservice.Create(body)
+      return busca
     } catch (err) {
       throw new Error(
         `Erro ao atualizar pessoa \n Erro: ${err.name}\n Mensagem: ${

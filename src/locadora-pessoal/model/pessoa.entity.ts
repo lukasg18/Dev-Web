@@ -30,6 +30,9 @@ export class Pessoa extends BaseEntity{
     @Column({ length: 100 })
     nomeusuario: string;
 
+    @Column({ type:"text", nullable:true })
+    urlimagem: string;
+
     @Column({ length: 100 })
     email: string;
   

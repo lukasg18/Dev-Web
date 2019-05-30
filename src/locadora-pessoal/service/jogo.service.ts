@@ -18,6 +18,12 @@ export class JogoService {
         leftJoinAndSelect: {
           genero: 'jogo.genero',
           plataforma: 'jogo.plataforma',
+          pessoajogo:'jogo.pessoajogo',
+          pessoa:'pessoajogo.pessoa',
+          cep:'pessoa.cep',
+          bairro:'cep.bairro',
+          municipio:'bairro.municipio',
+          estado:'municipio.estado'
         },
       },
       where: this.getWhere(params),
@@ -27,7 +33,7 @@ export class JogoService {
   }
 
   getWhere(query) {
-    const keysPermitidas = ['jogo', 'genero', 'plataforma'];
+    const keysPermitidas = ['jogo', 'genero', 'plataforma', 'bairro', 'municipio', 'estado'];
     let where = '';
     Object.keys(query)
       .filter(key => keysPermitidas.indexOf(key) !== -1)
@@ -44,17 +50,6 @@ export class JogoService {
         }
       });
     return where.substr(0, where.length - 4);
-  }
-
-  async searchByParams(nome: string, pag: number) {
-    return Jogo.createQueryBuilder('jogo')
-      .select(
-        'jogo.nome, jogo.anolancamento, plataforma.nome as plataforma, genero.nome as genero',
-      )
-      .innerJoin('jogo.plataforma', 'plataforma')
-      .innerJoin('jogo.genero', 'genero')
-      .where('jogo.nome ILIKE :jogo', { jogo: `%${nome}%` })
-      .getRawMany();
   }
 
   async Create(body: any): Promise<Jogo | any> {
@@ -98,19 +93,7 @@ export class JogoService {
   }
 
   async Update(body) {
-    let e = new Jogo();
-    try {
-      e.idjogo = body.idgenero;
-      let busca = await Jogo.findOne({ idjogo: e.idjogo });
-      busca.nome = body.nome;
-      return await Jogo.save(busca);
-    } catch (err) {
-      throw new Error(
-        `Erro ao verificar Jogo\n Erro: ${err.name}\n Mensagem: ${
-          err.message
-        }\n Os parametros estao certos?`,
-      );
-    }
+    throw new Error('Method not implemented.');
   }
 
   Drop(body: any): Promise<Jogo> {

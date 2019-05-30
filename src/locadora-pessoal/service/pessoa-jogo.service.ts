@@ -16,6 +16,8 @@ export class PessoaJogoService {
           jogo: 'pessoajogo.jogo',
           genero: 'jogo.genero',
           plataforma: 'jogo.plataforma',
+          pessoa:'pessoajogo.pessoa',
+          cep:'pessoa.cep'
         },
       },
     });
@@ -107,19 +109,7 @@ export class PessoaJogoService {
   }
 
   async Update(body) {
-    let e = new Jogo();
-    try {
-      e.idjogo = body.idgenero;
-      let busca = await Jogo.findOne({ idjogo: e.idjogo });
-      busca.nome = body.nome;
-      return await Jogo.save(busca);
-    } catch (err) {
-      throw new Error(
-        `Erro ao verificar Jogo\n Erro: ${err.name}\n Mensagem: ${
-          err.message
-        }\n Os parametros estao certos?`,
-      );
-    }
+    throw new Error('Method not implemented.');
   }
 
   Drop(body: any): Promise<Jogo> {

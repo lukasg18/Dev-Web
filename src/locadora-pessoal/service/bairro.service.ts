@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Bairro } from '../model/bairro.entity';
-import { genericInterface } from './interface/generic.interface';
 import { MunicipioService } from './municipio.service';
 import { Municipio } from '../model/municipio.entity';
 

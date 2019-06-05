@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Pessoa, statusEnum } from '../model/pessoa.entity';
-import { genericInterface } from './interface/generic.interface';
 import { Cep } from '../model/cep.entity';
 import { CepService } from './cep.service';
 import { EstadoService } from './estado.service';

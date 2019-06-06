@@ -18,6 +18,9 @@ export class Cep extends BaseEntity {
   @Column({ nullable: false, unique: true })
   numero: number;
 
+  @Column({ nullable: false })
+  logradouro: string;
+
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################

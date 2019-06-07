@@ -91,7 +91,7 @@ export class PessoaService {
       busca.pontuacao = 5;
       busca.nomeusuario = body.nomeusuario;
       busca.email = body.email;
-      busca.status = 0;
+      busca.status = body.status;
       busca.urlimagem = body.urlimagem;
       await Pessoa.save(busca);
       await authservice.Create(body)

@@ -15,28 +15,12 @@ import { PessoaJogoService } from '../service/pessoa-jogo.service';
 @ApiUseTags('pessoa-jogo')
 @Controller()
 export class PessoaJogoController {
-  constructor(private readonly jogoService: JogoService, private readonly pessoajogoService: PessoaJogoService) {}
+  constructor(private readonly pessoajogoService: PessoaJogoService) {}
 
-  @Get('/pessoajogo')
-  async readOne(@Res() res) {
-    try {
-      let jogo = await this.pessoajogoService.readAll()
-      if (jogo != undefined) {
-        res.status(HttpStatus.OK).send(jogo);
-      } else {
-        res
-          .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
-      }
-    } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
-    }
-  }
-
-  @Post('/jogo')
+  @Post('/pessoajogo')
   async createOne(@Res() res, @Body() body: any) {
     try {
-      let jogo = await this.jogoService.Create(body);
+      let jogo = await this.pessoajogoService.Create(body);
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send("cadastrado com sucesso!");
       } else {
@@ -49,10 +33,10 @@ export class PessoaJogoController {
     }
   }
 
-  @Post('/jogo/remove')
+  @Post('/pessoajogo/remove')
   async remove(@Res() res, @Body() body: any) {
     try {
-      let jogo = await this.jogoService.Drop(body);
+      let jogo = await this.pessoajogoService.Drop(body);
       console.log(jogo)
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send("cadastrado com sucesso!");

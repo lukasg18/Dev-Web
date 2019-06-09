@@ -52,16 +52,11 @@ export class ContaBancariaService {
       contaBancaria.nomeTitular = nomeTitular
       contaBancaria.principal = principal
       contaBancaria.metadata = JSON.stringify(pagarmeResponse)
-      contaBancaria.idGateway = (pagarmeResponse.id).toString()
-
-      console.log(contaBancaria);
-      
+      contaBancaria.idGateway = (pagarmeResponse.id).toString()      
       
       await ContaBancaria.save(contaBancaria);
       
-      return "topViado"
     } catch (err) {
-      console.log(err);
             
       throw new Error(
         `Erro ao salvar atedente\n Erro: ${err.name}\n Mensagem: ${

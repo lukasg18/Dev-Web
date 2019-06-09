@@ -9,8 +9,8 @@ import {
 import { Pessoa } from './pessoa.entity';
 
 export enum tipoContaciaEnum {
-  poupanca = 0,
-  corrente = 1,
+  saving = 0,
+  checking = 1,
 }
 
 export enum tipoDocumentoEnum {
@@ -19,7 +19,7 @@ export enum tipoDocumentoEnum {
 }
 
 @Entity()
-export class contaBancaria extends BaseEntity {
+export class ContaBancaria extends BaseEntity {
   @PrimaryGeneratedColumn()
   idconta: number;
 
@@ -49,6 +49,12 @@ export class contaBancaria extends BaseEntity {
 
   @Column({ type:"text", nullable: false})
   principal: boolean;
+
+  @Column({ type:"text", nullable: true})
+  metadata: string;
+
+  @Column({ nullable: true})
+  idGateway: string;
 
   //###################################################################
   //############################ RELAÇÕES #############################

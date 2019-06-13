@@ -19,7 +19,7 @@ export class AutenticacaoService {
         busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });
         senha = bcrypt.compareSync(body.senha, busca.senha);
         if (senha) {
-          return 'OK';
+          return pessoa;
         } else {
           return 'Senha incorreta';
         }

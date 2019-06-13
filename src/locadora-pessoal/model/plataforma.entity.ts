@@ -18,6 +18,9 @@ export class Plataforma extends BaseEntity {
   @Column({ nullable: false})
   nome: string;
 
+  @Column({ nullable: true})
+  urlimagem: string;
+
   
   //###################################################################
   //############################ RELAÇÕES #############################

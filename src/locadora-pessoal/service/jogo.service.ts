@@ -18,12 +18,6 @@ export class JogoService {
         leftJoinAndSelect: {
           genero: 'jogo.genero',
           plataforma: 'jogo.plataforma',
-          pessoajogo: 'jogo.pessoajogo',
-          pessoa: 'pessoajogo.pessoa',
-          cep: 'pessoa.cep',
-          bairro: 'cep.bairro',
-          municipio: 'bairro.municipio',
-          estado: 'municipio.estado',
         },
       },
       where: this.getWhere(params),
@@ -33,15 +27,7 @@ export class JogoService {
   }
 
   getWhere(query) {
-    const keysPermitidas = [
-      'jogo',
-      'genero',
-      'plataforma',
-      'bairro',
-      'municipio',
-      'estado',
-      'pessoajogo',
-    ];
+    const keysPermitidas = ['jogo', 'genero', 'plataforma'];
     let where = '';
     Object.keys(query)
       .filter(key => keysPermitidas.indexOf(key) !== -1)
@@ -54,11 +40,7 @@ export class JogoService {
           where = where.substr(0, where.length - 3);
           where += ') and ';
         } else {
-          if (key == 'pessoajogo') {
-            where += `${key}.vitrine = '${query[key]}' and `
-          } else {
-            where += `${key}.nome ILIKE '%${query[key]}%' and `;
-          }
+          where += `${key}.nome ILIKE '%${query[key]}%' and `;
         }
       });
     return where.substr(0, where.length - 4);

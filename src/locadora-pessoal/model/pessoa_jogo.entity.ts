@@ -36,7 +36,7 @@ export class PessoaJogo extends BaseEntity {
   jogo: Jogo;
 
   @ManyToOne(type => Pessoa, pessoa => pessoa.pessoajogo, {
-    eager: true, cascade: true, onDelete: "CASCADE"
+    cascade: true, onDelete: "CASCADE"
   })
   @JoinColumn({ name: 'idpessoa' })
   pessoa: Pessoa;

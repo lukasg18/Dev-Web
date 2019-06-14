@@ -17,6 +17,39 @@ import { PessoaJogoService } from '../service/pessoa-jogo.service';
 export class PessoaJogoController {
   constructor(private readonly pessoajogoService: PessoaJogoService) {}
 
+
+  @Get('/pessoajogo')
+  async readAll(@Res() res, @Query() query) {
+    try {
+      let jogo = await this.pessoajogoService.searchByFull(query)
+      if (jogo != undefined) {
+        res.status(HttpStatus.OK).send(jogo);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .send('Nenhum jogo encontrado na busca');
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
+    }
+  }
+
+  @Get('/pessoajogo/:idpessoa')
+  async readOne(@Res() res, @Param() idpessoa) {
+    try {
+      let jogo = await this.pessoajogoService.searchById(idpessoa)
+      if (jogo != undefined) {
+        res.status(HttpStatus.OK).send(jogo);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .send('Nenhum jogo encontrado na busca');
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
+    }
+  }
+
   @Post('/pessoajogo')
   async createOne(@Res() res, @Body() body: any) {
     try {

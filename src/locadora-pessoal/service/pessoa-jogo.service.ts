@@ -30,6 +30,75 @@ export class PessoaJogoService {
     }
   }
 
+  async searchByFull(params) {
+    return Jogo.find({
+      join: {
+        alias: 'jogo',
+        leftJoinAndSelect: {
+          genero: 'jogo.genero',
+          plataforma: 'jogo.plataforma',
+          pessoajogo: 'jogo.pessoajogo',
+          pessoa: 'pessoajogo.pessoa',
+          cep: 'pessoa.cep',
+          bairro: 'cep.bairro',
+          municipio: 'bairro.municipio',
+          estado: 'municipio.estado',
+        },
+      },
+      where: this.getWhere(params),
+      skip: params.pag * 10,
+      take: 10,
+    });
+  }
+
+  async searchById(params) {
+    return PessoaJogo.find({
+      join: {
+        alias: 'pessoajogo',
+        leftJoinAndSelect: {
+          jogo: 'pessoajogo.jogo',
+          genero: 'jogo.genero',
+          plataforma: 'jogo.plataforma',
+        },
+      },
+      where: {idpessoa: params.idpessoa},
+      skip: params.pag * 10,
+      take: 10,
+    });
+  }
+
+  getWhere(query) {
+    const keysPermitidas = [
+      'jogo',
+      'genero',
+      'plataforma',
+      'bairro',
+      'municipio',
+      'estado',
+      'pessoajogo',
+    ];
+    let where = '';
+    Object.keys(query)
+      .filter(key => keysPermitidas.indexOf(key) !== -1)
+      .forEach(key => {
+        if (Array.isArray(query[key])) {
+          where += '( ';
+          query[key].forEach(element => {
+            where += `${key}.nome ILIKE '%${element}%' or `;
+          });
+          where = where.substr(0, where.length - 3);
+          where += ') and ';
+        } else {
+          if (key == 'pessoajogo') {
+            where += `${key}.vitrine = '${query[key]}' and `
+          } else {
+            where += `${key}.nome ILIKE '%${query[key]}%' and `;
+          }
+        }
+      });
+    return where.substr(0, where.length - 4);
+  }
+
   async Update(body) {
     throw new Error('Method not implemented.');
   }

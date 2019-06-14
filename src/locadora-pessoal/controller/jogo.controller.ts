@@ -8,7 +8,7 @@ import {
   HttpStatus,
   Query,
 } from '@nestjs/common';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiImplicitQuery } from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
 import { JogoService } from '../service/jogo.service';
 @ApiUseTags('Jogo')
@@ -17,6 +17,24 @@ export class JogoController {
   constructor(private readonly jogoService: JogoService) {}
 
   @Get('/jogo')
+  @ApiImplicitQuery({
+    name: 'jogo',
+    description: 'nome do jogo',
+    required: false,
+    type: String,
+  })
+  @ApiImplicitQuery({
+    name: 'genero',
+    description: 'nome do genero',
+    required: false,
+    type: String,
+  })
+  @ApiImplicitQuery({
+    name: 'plataforma',
+    description: 'nome da plataforma',
+    required: false,
+    type: String,
+  })
   async readOne(@Res() res, @Query() query) {
     try {
       let jogo = await this.jogoService.searchByFull(query)

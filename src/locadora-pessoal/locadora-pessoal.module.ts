@@ -24,6 +24,8 @@ import { PessoaJogoController } from './controller/pessoa-jogo.controller';
 import { ContaBancaria } from './model/conta-bancaria.entity';
 import { ContaBancariaController } from './controller/conta-bancaria.controller';
 import { ContaBancariaService } from './service/conta-bancaria.service';
+import { LocacaoService } from './service/locacao.service';
+import { LocacaoController } from './controller/locacao.controller';
 
 const modelProvider = [...databaseProviders];
 
@@ -39,7 +41,8 @@ const modelService = [
   PlataformaService,
   JogoService,
   PessoaJogoService,
-  ContaBancariaService
+  ContaBancariaService,
+  LocacaoService
 ];
 
 const modelController = [
@@ -53,7 +56,8 @@ const modelController = [
   PlataformaController,
   JogoController,
   PessoaJogoController,
-  ContaBancariaController
+  ContaBancariaController,
+  LocacaoController
  ];
 
 @Module({

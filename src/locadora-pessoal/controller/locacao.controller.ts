@@ -14,13 +14,14 @@ import {
   @ApiUseTags('Locacao')
   @Controller()
   export class LocacaoController {
-    constructor(private readonly contaBancariaService: LocacaoService) {}
+    constructor(private readonly locacaoService: LocacaoService) {}
     @Post('/locacao')
     async createOne(@Res() res, @Body() body: any) {
       try {
         console.log("ok");
         
-        // let conta = await this.contaBancariaService.Create(body);
+        await this.locacaoService.Create(body);
+        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
         // if (conta != undefined) {
         //   res.status(HttpStatus.OK).send("cadastrado com sucesso!");
         // } else {

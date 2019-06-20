@@ -30,18 +30,13 @@ export class LocacaoService {
       const pessoaJogo = await PessoaJogo.findOne({ where: { idpessoa: body.idpessoa, idjogo: body.idjogo} });
       
       if (!pessoaJogo) {
-        // to do
+        throw new Error(`Não foi possivel encontrar PessoaJogo`);      
       }
 
       locacao.pessoa = pessoa;
       locacao.pessoajogo = pessoaJogo
                 
-      const periodoLocacao = {
-        dataLocacao: locacao.datalocacao,
-        dataDevolucao: locacao.datadevolucao
-      }
-
-      const valorTotal = this.calcularPreco({preco: pessoaJogo.preco, periodoLocacao})
+    
 
       return Locacao.save(locacao)
             

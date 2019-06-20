@@ -2,6 +2,9 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Locacao } from '../model/locacao.entity';
 import { Pagarme } from '../gateways/pagarme';
 import { PessoaJogo } from '../model/pessoa_jogo.entity';
+import { LOADIPHLPAPI } from 'dns';
+import { Pessoa } from 'locadora-pessoal/model/pessoa.entity';
+const moment = require('moment')
 
 @Injectable()
 export class LocacaoService {
@@ -15,24 +18,33 @@ export class LocacaoService {
   }
 
   async Create(body: any): Promise<Locacao | any> {
-
     try {
       const locacao = new Locacao()
+
       locacao.datadevolucao = body.datadevolucao;
       locacao.datalocacao = body.datalocacao;
-      locacao.pessoa = body.pessoa;
-      locacao.pessoajogo = body.pessoajogo;
       locacao.status = 1;
 
-      const pessoaJogo = await PessoaJogo.findOne({ where: { idpessoa: locacao.pessoajogo} });
 
-      // if (!pessoaJogo) {
-      //   // to do
-      // }
+      const pessoa = await Pessoa.findOne({where: {idpessoa: body.pessoa}})
+      const pessoaJogo = await PessoaJogo.findOne({ where: { idpessoa: body.idpessoa, idjogo: body.idjogo} });
+      
+      if (!pessoaJogo) {
+        // to do
+      }
 
-      console.log(pessoaJogo);
-      
-      
+      locacao.pessoa = pessoa;
+      locacao.pessoajogo = pessoaJogo
+                
+      const periodoLocacao = {
+        dataLocacao: locacao.datalocacao,
+        dataDevolucao: locacao.datadevolucao
+      }
+
+      const valorTotal = this.calcularPreco({preco: pessoaJogo.preco, periodoLocacao})
+
+      return Locacao.save(locacao)
+            
     } catch (err) {
 
       throw new Error(
@@ -43,8 +55,12 @@ export class LocacaoService {
     }
   }
 
-  calcularPreco(data: any): any {
-    // to do
+  calcularPreco({preco, periodoLocacao}: any): any {
+    const dataLocacao = moment(periodoLocacao.dataLocacao)
+    const dataDevolucao = moment(periodoLocacao.dataDevolucao)
+    const dias = dataDevolucao.diff(dataLocacao, 'days')
+  
+    return (dias * preco)
   }
 
 }

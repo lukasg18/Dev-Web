@@ -18,17 +18,15 @@ import {
     @Post('/locacao')
     async createOne(@Res() res, @Body() body: any) {
       try {
-        console.log("ok");
+        const locacao = await this.locacaoService.Create(body);
         
-        await this.locacaoService.Create(body);
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
-        // if (conta != undefined) {
-        //   res.status(HttpStatus.OK).send("cadastrado com sucesso!");
-        // } else {
-        //   res
-        //     .status(HttpStatus.NOT_FOUND)
-        //     .send('Nenhum jogo encontrado na busca');
-        // }
+        if (locacao != undefined) {
+          res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        } else {
+          res
+            .status(HttpStatus.NOT_FOUND)
+            .send('Nenhum jogo encontrado na busca');
+        }
       } catch (err) {
         res.status(HttpStatus.BAD_GATEWAY).send(err);
       }

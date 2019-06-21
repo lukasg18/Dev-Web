@@ -9,6 +9,11 @@ import {
 } from 'typeorm';
 import { Jogo } from './jogo.entity';
 
+export enum statusEnum {
+  ativo = 0,
+  inativo = 1,
+} 
+
 
 @Entity()
 export class Plataforma extends BaseEntity {
@@ -21,6 +26,8 @@ export class Plataforma extends BaseEntity {
   @Column({ nullable: true})
   urlimagem: string;
 
+  @Column({ nullable:true })
+  status: statusEnum;
   
   //###################################################################
   //############################ RELAÇÕES #############################

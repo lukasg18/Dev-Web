@@ -13,6 +13,11 @@ import { Genero } from './genero.entity';
 import { Plataforma } from './plataforma.entity';
 
 
+export enum statusEnum {
+  ativo = 0,
+  inativo = 1,
+} 
+
 @Entity()
 export class Jogo extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -38,6 +43,9 @@ export class Jogo extends BaseEntity {
 
   @Column({ nullable: false})
   produtora: string;
+
+  @Column({ nullable:true })
+  status: statusEnum;
 
   //###################################################################
   //############################ RELAÇÕES #############################

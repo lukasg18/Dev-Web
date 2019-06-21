@@ -6,9 +6,15 @@ import {
   Body,
   Res,
   HttpStatus,
+  Delete,
 } from '@nestjs/common';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiModelProperty, ApiImplicitBody } from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
+
+class PostGenero{
+  @ApiModelProperty()
+  numero:number
+}
 @ApiUseTags('Genero')
 @Controller()
 export class GeneroController {
@@ -18,24 +24,9 @@ export class GeneroController {
   root(): any {
     return this.generoService.readAll();
   }
-
-  @Get('/genero/:id')
-  async readOne(@Res() res, @Param() id) {
-    try {
-      let genero = await this.generoService.readOne(id.id);
-      if (genero != undefined) {
-        res.status(HttpStatus.OK).send(genero);
-      } else {
-        res
-          .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
-      }
-    } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
-    }
-  }
-
+  
   @Post('/genero')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostGenero })
   async createOne(@Res() res, @Body() body: any) {
     try {
       let genero = await this.generoService.Create(body);
@@ -51,7 +42,8 @@ export class GeneroController {
     }
   }
 
-  @Post('/genero/remove')
+  @Delete('/genero')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostGenero })
   async remove(@Res() res, @Body() body: any) {
     try {
       let genero = await this.generoService.Drop(body);

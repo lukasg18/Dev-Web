@@ -1,16 +1,46 @@
 import {
   Get,
   Controller,
-  Param,
   Post,
   Body,
   Res,
   HttpStatus,
   Query,
+  Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiImplicitQuery } from '@nestjs/swagger';
-import { GeneroService } from '../service/genero.service';
+import { ApiUseTags, ApiImplicitQuery, ApiModelProperty, ApiImplicitBody } from '@nestjs/swagger';
 import { JogoService } from '../service/jogo.service';
+
+class PostPlataforma{
+  @ApiModelProperty()
+  nome:string
+}
+
+class PostGenero{
+  @ApiModelProperty()
+  numero:number
+}
+
+class PostJogo {
+  @ApiModelProperty()
+  nome: string;
+  @ApiModelProperty()
+  urlimagem: string;
+  @ApiModelProperty()
+  anolancamento:string
+  @ApiModelProperty()
+  descricao:string
+  @ApiModelProperty()
+  classificacao:string
+  @ApiModelProperty()
+  multiplayer:boolean
+  @ApiModelProperty()
+  produtora:string
+  @ApiModelProperty()
+  genero:PostGenero[]
+  @ApiModelProperty()
+  plataforma:PostPlataforma[]
+}
 @ApiUseTags('Jogo')
 @Controller()
 export class JogoController {
@@ -51,6 +81,7 @@ export class JogoController {
   }
 
   @Post('/jogo')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostJogo })
   async createOne(@Res() res, @Body() body: any) {
     try {
       let jogo = await this.jogoService.Create(body);
@@ -66,7 +97,8 @@ export class JogoController {
     }
   }
 
-  @Post('/jogo/remove')
+  @Delete('/jogo')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostJogo })
   async remove(@Res() res, @Body() body: any) {
     try {
       let jogo = await this.jogoService.Drop(body);

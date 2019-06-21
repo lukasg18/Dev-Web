@@ -7,6 +7,7 @@ import {
   Res,
   HttpStatus,
   Query,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiUseTags,
@@ -115,7 +116,7 @@ export class PessoaJogoController {
     }
   }
 
-  @Post('/pessoajogo/remove')
+  @Delete('/pessoajogo')
   async remove(@Res() res, @Body() body: any) {
     try {
       let jogo = await this.pessoajogoService.Drop(body);

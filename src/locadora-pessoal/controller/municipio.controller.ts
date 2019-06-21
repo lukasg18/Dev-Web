@@ -17,14 +17,4 @@ export class MunicipioController {
   readOne(@Param() param ):any {
     return this.municipioService.readOne(param.id);
   }
-
-  @Post('/municipio')
-  Create(@Body() body):any {
-    return this.municipioService.Create(body);
-  }
-
-  @Post('/municipio/update')
-  public updateOne(@Body() body: Municipio) {
-    return this.municipioService.Update(body);
-  }
 }

@@ -17,19 +17,4 @@ export class BairroController {
   readOne(@Param() param):any {
     return this.bairroService.readOne(param.id);
   }
-
-  @Post('/bairro')
-  Create(@Body() body):any {
-    return this.bairroService.Create(body);
-  }
-
-  @Post('/bairro/remove')
-  public removeOne(@Body() body:Bairro) {
-    return this.bairroService.Drop(body)
-  }
-
-  @Post('/bairro/update')
-  public updateOne(@Body() body: Bairro) {
-    return this.bairroService.Update(body);
-  }
 }

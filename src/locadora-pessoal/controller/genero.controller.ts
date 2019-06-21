@@ -13,6 +13,8 @@ import { GeneroService } from '../service/genero.service';
 
 class PostGenero{
   @ApiModelProperty()
+  idgenero?: string;
+  @ApiModelProperty()
   nome:string
   @ApiModelProperty()
   status:number
@@ -50,9 +52,8 @@ export class GeneroController {
   async remove(@Res() res, @Body() body: any) {
     try {
       let genero = await this.generoService.Drop(body);
-      console.log(genero)
       if (genero != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {
         res
           .status(HttpStatus.NOT_FOUND)

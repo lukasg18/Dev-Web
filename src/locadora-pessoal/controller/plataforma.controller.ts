@@ -13,6 +13,8 @@ import { PlataformaService } from '../service/plataforma.service';
 
 class PostPlataforma{
   @ApiModelProperty()
+  idplataforma?:number
+  @ApiModelProperty()
   nome:string
   @ApiModelProperty()
   status:number
@@ -34,7 +36,7 @@ export class PlataformaController {
     try {
       let plataforma = await this.plataformaService.Create(body);
       if (plataforma != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).send("Cadastrado com sucesso!");
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
@@ -50,9 +52,8 @@ export class PlataformaController {
   async remove(@Res() res, @Body() body: any) {
     try {
       let plataforma = await this.plataformaService.Drop(body);
-      console.log(plataforma)
       if (plataforma != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {
         res
           .status(HttpStatus.NOT_FOUND)

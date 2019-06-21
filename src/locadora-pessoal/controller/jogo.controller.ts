@@ -27,6 +27,8 @@ class PostGenero{
 
 class PostJogo {
   @ApiModelProperty()
+  idjogo?: string;
+  @ApiModelProperty()
   nome: string;
   @ApiModelProperty()
   urlimagem: string;
@@ -108,9 +110,8 @@ export class JogoController {
   async remove(@Res() res, @Body() body: any) {
     try {
       let jogo = await this.jogoService.Drop(body);
-      console.log(jogo)
       if (jogo != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {
         res
           .status(HttpStatus.NOT_FOUND)

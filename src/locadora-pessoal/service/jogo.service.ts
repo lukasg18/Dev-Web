@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Jogo } from '../model/jogo.entity';
+import { Jogo, statusEnum } from '../model/jogo.entity';
 import { Plataforma } from '../model/plataforma.entity';
 import { PlataformaService } from './plataforma.service';
 import { GeneroService } from './genero.service';
@@ -51,21 +51,23 @@ export class JogoService {
     let plataformaService = new PlataformaService();
     let generoService = new GeneroService();
     let busca = new Jogo();
+    let genero = new Array<Genero>();
+    let plataforma = new Array<Plataforma>();
     try {
       for (let index = 0; index < body.plataforma.length; index++) {
-        await plataformaService.Create(body.plataforma[index]);
+        plataforma.push(await plataformaService.Create(body.plataforma[index]));
       }
 
       for (let index = 0; index < body.genero.length; index++) {
-        await generoService.Create(body.genero[index]);
+        genero.push(await generoService.Create(body.genero[index]));
       }
 
-      busca = await Jogo.findOne({ nome: body.nome });
+      busca = await Jogo.findOne({ idjogo: body.idjogo });
       if (busca != undefined) {
-        return busca;
+        return this.Update(body, busca, genero, plataforma);
       } else {
-        jogo.genero = body.genero;
-        jogo.plataforma = body.plataforma;
+        jogo.genero = genero;
+        jogo.plataforma = plataforma;
 
         jogo.nome = body.nome;
         jogo.descricao = body.descricao;
@@ -74,22 +76,53 @@ export class JogoService {
         jogo.classificacao = body.classificacao;
         jogo.multiplayer = body.multiplayer;
         jogo.produtora = body.produtora;
+        jogo.status = 0;
         return await Jogo.save(jogo);
       }
     } catch (err) {
       throw new Error(
-        `Erro ao verificar Jogo\n Erro: ${err.name}\n Mensagem: ${
+        `Erro ao criar Jogo\n Erro: ${err.name}\n Mensagem: ${
           err.message
         }\n Os parametros estao certos?`,
       );
     }
   }
 
-  async Update(body) {
-    throw new Error('Method not implemented.');
+  async Update(body, busca, genero, plataforma) {
+    try {
+      busca.genero = genero;
+      busca.plataforma = plataforma;
+
+      busca.nome = body.nome;
+      busca.descricao = body.descricao;
+      busca.urlimagem = body.urlimagem;
+      busca.anolancamento = body.anolancamento;
+      busca.classificacao = body.classificacao;
+      busca.multiplayer = body.multiplayer;
+      busca.produtora = body.produtora;
+      busca.status = body.status;
+      return await Jogo.save(busca);
+    } catch (err) {
+      throw new Error(
+        `Erro ao atualizar Jogo\n Erro: ${err.name}\n Mensagem: ${
+          err.message
+        }\n Os parametros estao certos?`,
+      );
+    }
   }
 
-  Drop(body: any): Promise<Jogo> {
-    throw new Error('Method not implemented.');
+  async Drop(body: any): Promise<Jogo> {
+    let busca = new Jogo();
+    try {
+      busca = await Jogo.findOne({ idjogo: body.idjogo });
+      busca.status = statusEnum.inativo;
+      return await Jogo.save(busca);
+    } catch (err) {
+      throw new Error(
+        `Erro ao inativar Jogo\n Erro: ${err.name}\n Mensagem: ${
+          err.message
+        }\n Os parametros estao certos?`,
+      );
+    }
   }
 }

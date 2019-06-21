@@ -9,10 +9,51 @@ import { AutenticacaoService } from './autenticacao.service';
 
 @Injectable()
 export class PessoaService {
-  async readAll(): Promise<Pessoa[] | any> {
-    return Pessoa.find();
+  async readAll(params): Promise<Pessoa[] | any> {
+    return Pessoa.find({
+      join: {
+        alias: 'pessoa',
+        leftJoinAndSelect: {
+          cep: 'pessoa.cep',
+          bairro: 'cep.bairro',
+          municipio: 'bairro.municipio',
+          estado: 'municipio.estado',
+        },
+      },
+      where: this.getWhere(params),
+      skip: params.pag * 10,
+      take: 10,
+    });
   }
 
+  getWhere(query) {
+    const keysPermitidas = [
+      'status',
+      'bairro',
+      'municipio',
+      'estado',
+    ];
+    let where = '';
+    Object.keys(query)
+      .filter(key => keysPermitidas.indexOf(key) !== -1)
+      .forEach(key => {
+        if (Array.isArray(query[key])) {
+          where += '( ';
+          query[key].forEach(element => {
+            where += `${key}.nome ILIKE '%${element}%' or `;
+          });
+          where = where.substr(0, where.length - 3);
+          where += ') and ';
+        } else {
+          if (key == 'status') {
+            where += `pessoa.status = '${query[key]}' and `;
+          } else {
+            where += `${key}.nome ILIKE '%${query[key]}%' and `;
+          }
+        }
+      });
+    return where.substr(0, where.length - 4);
+  }
   async readOne(cpf: string) {
     return await Pessoa.findOne({ cpf: cpf });
   }
@@ -48,12 +89,12 @@ export class PessoaService {
         pessoa.status = 0;
         pessoa.urlimagem = body.urlimagem;
         await Pessoa.save(pessoa);
-        await authservice.Create(body)
-        return pessoa
+        await authservice.Create(body);
+        return pessoa;
       }
     } catch (err) {
       throw new Error(
-        `Erro ao salvar pessoa \n Erro: ${err.name}\n Mensagem: ${
+        `Erro ao cadastrar pessoa \n Erro: ${err.name}\n Mensagem: ${
           err.message
         }\n Os parametros estao certos?`,
       );
@@ -94,8 +135,8 @@ export class PessoaService {
       busca.status = body.status;
       busca.urlimagem = body.urlimagem;
       await Pessoa.save(busca);
-      await authservice.Create(body)
-      return busca
+      await authservice.Create(body);
+      return busca;
     } catch (err) {
       throw new Error(
         `Erro ao atualizar pessoa \n Erro: ${err.name}\n Mensagem: ${

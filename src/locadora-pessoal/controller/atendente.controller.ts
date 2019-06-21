@@ -37,6 +37,8 @@ class PostCep{
 
 class PostPessoa {
   @ApiModelProperty()
+  idpessoa: number;
+  @ApiModelProperty()
   cpf: string;
   @ApiModelProperty()
   senha: string;

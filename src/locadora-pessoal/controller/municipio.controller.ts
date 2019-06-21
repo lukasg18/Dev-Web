@@ -12,9 +12,4 @@ export class MunicipioController {
   readAll():any {
     return this.municipioService.readAll();
   }
-
-  @Get('/municipio/:id')
-  readOne(@Param() param ):any {
-    return this.municipioService.readOne(param.id);
-  }
 }

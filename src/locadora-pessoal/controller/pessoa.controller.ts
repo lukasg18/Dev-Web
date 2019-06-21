@@ -66,22 +66,6 @@ export class PessoaController {
     return this.pessoaService.readAll();
   }
 
-  @Get('/pessoa/:id')
-  async readOne(@Res() res, @Param() id) {
-    try {
-      let pessoa = await this.pessoaService.readOne(id.id);
-      if (pessoa != undefined) {
-        res.status(HttpStatus.OK).send(pessoa);
-      } else {
-        res
-          .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
-      }
-    } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
-    }
-  }
-
   @Post('/pessoa')
   @ApiImplicitBody({ name: 'body', required: true, type: PostPessoa })
   async createOne(@Res() res, @Body() body: any) {

@@ -13,8 +13,4 @@ export class EstadoController {
     return this.estadoService.readAll();
   }
  
-  @Get('/estado/:id')
-  readOne(@Param() param):any {
-    return this.estadoService.readOne(param.id);
-  }
 }

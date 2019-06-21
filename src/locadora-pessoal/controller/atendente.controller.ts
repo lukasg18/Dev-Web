@@ -3,7 +3,6 @@ import {
   Controller,
   Res,
   HttpStatus,
-  Param,
   Post,
   Body,
 } from '@nestjs/common';
@@ -61,21 +60,6 @@ class PostAtendente {
 export class AtendenteController {
   constructor(private readonly atendenteService: AtendenteService) {}
 
-  @Get('/atendente/:id')
-  async readOne(@Res() res, @Param() id) {
-    try {
-      let atendente: Atendente[] = await this.atendenteService.readOne(id.id);
-      if (atendente != undefined) {
-        res.status(HttpStatus.OK).send(atendente);
-      } else {
-        res
-          .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
-      }
-    } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
-    }
-  }
 
   @Get('/atendente')
   async readAll(@Res() res) {

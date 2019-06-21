@@ -12,9 +12,4 @@ export class BairroController {
   readAll():any {
     return this.bairroService.readAll();
   }
-
-  @Get('/bairro/:id')
-  readOne(@Param() param):any {
-    return this.bairroService.readOne(param.id);
-  }
 }

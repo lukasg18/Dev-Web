@@ -40,8 +40,13 @@ export class Locacao extends BaseEntity {
   @ManyToOne(type => PessoaJogo, pessoajogo => pessoajogo.locacao, {
     eager: true, cascade: true, onDelete: "CASCADE"
   })
-  @JoinColumn({name: "idpessoajogo"})
+  @JoinColumn([
+    {name: "idpessoa" , referencedColumnName: "idpessoa" },
+    {name: "idjogo" , referencedColumnName: "idjogo" },
+    ]
+  )
   pessoajogo: PessoaJogo;
+
 
   @ManyToOne(type => Pessoa, pessoa => pessoa.locacao, {
     eager: true, cascade: true, onDelete: "CASCADE"
@@ -51,6 +56,9 @@ export class Locacao extends BaseEntity {
 
   @OneToMany(type => Avaliacao, avaliacao => avaliacao.locacao)
   avaliacao:Avaliacao[]
+
+
+
 
 
 }

@@ -14,9 +14,8 @@ export class PessoaJogoService {
       if (busca != undefined) {
         return busca;
       } else {
-        console.log("entrei")
-        pessoaJogo.idjogo = body.jogo;
-        pessoaJogo.idpessoa = body.pessoa;
+        pessoaJogo.idjogo = body.idjogo;
+        pessoaJogo.idpessoa = body.idpessoa;
         pessoaJogo.preco = body.preco;
         pessoaJogo.vitrine = true;
         return await PessoaJogo.save(pessoaJogo);

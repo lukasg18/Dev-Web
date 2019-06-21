@@ -14,6 +14,8 @@ import { PlataformaService } from '../service/plataforma.service';
 class PostPlataforma{
   @ApiModelProperty()
   nome:string
+  @ApiModelProperty()
+  status:number
 }
 
 @ApiUseTags('Plataforma')

@@ -55,6 +55,8 @@ class PostPessoa {
   numeroregistro:string
   @ApiModelProperty()
   urlimagem: string;
+  @ApiModelProperty()
+  status: string;
 }
 @ApiUseTags('Pessoa')
 @Controller()
@@ -84,6 +86,7 @@ export class PessoaController {
   }
 
   @Delete('/pessoa')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostPessoa })
   async remove(@Res() res, @Body() body: any) {
     try {
       let pessoa = await this.pessoaService.Drop(body);

@@ -19,7 +19,7 @@ export class AtendenteService {
     let pessoaService = new PessoaService();
     let pessoa = new Pessoa();
     try {
-      pessoa = await pessoaService.Create(body);
+      pessoa = await pessoaService.Create(body.pessoa);
       atendente.numeroregistro = body.numeroregistro;
       atendente.idpessoa = pessoa.idpessoa;
       return await Atendente.save(atendente);

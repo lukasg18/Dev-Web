@@ -35,7 +35,7 @@ class PostCep{
   bairro:PostBairro
 }
 
-class PostAtendente {
+class PostPessoa {
   @ApiModelProperty()
   cpf: string;
   @ApiModelProperty()
@@ -51,10 +51,18 @@ class PostAtendente {
   @ApiModelProperty()
   sexo:number
   @ApiModelProperty()
+  urlimagem: string;
+  @ApiModelProperty()
+  status: string;
+}
+
+class PostAtendente{
+  @ApiModelProperty()
   numeroregistro:string
   @ApiModelProperty()
-  urlimagem: string;
+  pessoa:PostPessoa
 }
+
 @ApiUseTags('Atendente')
 @Controller()
 export class AtendenteController {

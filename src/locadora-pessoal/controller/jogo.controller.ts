@@ -14,11 +14,15 @@ import { JogoService } from '../service/jogo.service';
 class PostPlataforma{
   @ApiModelProperty()
   nome:string
+  @ApiModelProperty()
+  status:number
 }
 
 class PostGenero{
   @ApiModelProperty()
   numero:number
+  @ApiModelProperty()
+  status:number
 }
 
 class PostJogo {
@@ -37,9 +41,11 @@ class PostJogo {
   @ApiModelProperty()
   produtora:string
   @ApiModelProperty()
-  genero:PostGenero[]
+  genero:[PostGenero]
   @ApiModelProperty()
   plataforma:PostPlataforma[]
+  @ApiModelProperty()
+  status:number
 }
 @ApiUseTags('Jogo')
 @Controller()

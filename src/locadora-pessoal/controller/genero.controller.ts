@@ -13,8 +13,11 @@ import { GeneroService } from '../service/genero.service';
 
 class PostGenero{
   @ApiModelProperty()
-  numero:number
+  nome:string
+  @ApiModelProperty()
+  status:number
 }
+
 @ApiUseTags('Genero')
 @Controller()
 export class GeneroController {

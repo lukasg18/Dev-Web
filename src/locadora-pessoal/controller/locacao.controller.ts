@@ -19,17 +19,22 @@ import {
     @Post('/locacao')
     async createOne(@Res() res, @Body() body: any) {
       try {
-        const locacao = await this.locacaoService.Create(body);
+        const {idCartao, metodoPagamento, ...dadosLocacao} = body
+
+        const locacao = await this.locacaoService.Create(dadosLocacao);
 
         if (!locacao) {
           res
             .status(HttpStatus.NOT_FOUND)
             .send('Não foi possível cadastrar');
         }
-        const pagamento = this.pagamentoService.Create({tipo: 1 , modelo: locacao})
+        const pagamento = this.pagamentoService.Create({
+          tipo: 1, 
+          idCartao, 
+          metodoPagamento,
+          modelo: locacao
+        })
         
-
-
         if (locacao != undefined) {
           res.status(HttpStatus.OK).send("cadastrado com sucesso!");
         } else {

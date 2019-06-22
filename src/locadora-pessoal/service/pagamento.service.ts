@@ -23,19 +23,12 @@ export class PagamentoService {
     try {
         const {tipo, modelo} = body
    
-        if (tipo === 1 ) {
-            const { pessoajogo } = modelo
-
-            const periodoLocacao = {
-                dataLocacao: modelo.datalocacao,
-                dataDevolucao: modelo.datadevolucao
-            }
-
-            const valorTotal = this.calcularPreco({preco: pessoajogo.preco, periodoLocacao})
+        switch (tipo){
+            case 1:
+                return this.pagarLocacao(modelo)
+            default:
+                return ""
         }
-
-
-
 
     } catch (err) {
 
@@ -45,6 +38,24 @@ export class PagamentoService {
         }\n Os parametros estao certos?`,
       );
     }
+  }
+
+  async pagarLocacao(locacao) {
+      
+    const { pessoajogo } = locacao
+
+    const periodoLocacao = {
+        dataLocacao: locacao.datalocacao,
+        dataDevolucao: locacao.datadevolucao
+    }
+
+    const valorTotal = this.calcularPreco({preco: pessoajogo.preco, periodoLocacao})
+    const pagamento = new Pagamento()
+    pagamento.valor = valorTotal
+
+    
+
+
   }
 
   calcularPreco({preco, periodoLocacao}: any): any {

@@ -18,6 +18,17 @@ export enum tipoPagamento {
   assinatura = 0,
 }
 
+export enum status {
+  pendente = 0,
+  completo = 1,
+}
+
+export enum metodoPagamento {
+  cartao = 0,
+  boleto = 1
+}
+
+
 @Entity()
 export class Pagamento extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -26,11 +37,17 @@ export class Pagamento extends BaseEntity {
   @Column({ nullable: false })
   valor: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   data: Date;
 
   @Column({ nullable: false })
   tipopagamento: tipoPagamento;
+
+  @Column({nullable: false})
+  status: status
+
+  @Column({nullable: false})
+  metodopagamento: metodoPagamento
 
   //###################################################################
   //############################ RELAÇÕES #############################
@@ -61,12 +78,12 @@ export class Pagamento extends BaseEntity {
   assinatura: Assinatura[];
  
 
-  @ManyToOne(type => ModalidadePagamento, modalidadepagamento => modalidadepagamento.pagamento, {
-    eager: true,
-    cascade: true,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'idmodalidadepagamento' })
-  modalidadepagamento: ModalidadePagamento;
+  // @ManyToOne(type => ModalidadePagamento, modalidadepagamento => modalidadepagamento.pagamento, {
+  //   eager: true,
+  //   cascade: true,
+  //   onDelete: 'CASCADE',
+  // })
+  // @JoinColumn({ name: 'idmodalidadepagamento' })
+  // modalidadepagamento: ModalidadePagamento;
 
 }

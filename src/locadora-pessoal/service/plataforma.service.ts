@@ -15,12 +15,11 @@ export class PlataformaService {
     let plataforma = new Plataforma();
     try {
       let busca = await Plataforma.findOne({ nome: body.nome });
-      console.log(busca);
       if (busca != undefined) {
         return busca;
       } else {
-        console.log("entrei")
         plataforma.nome = body.nome;
+        plataforma.urlimagem = body.nome
         return await Plataforma.save(plataforma);
       }
     } catch (err) {

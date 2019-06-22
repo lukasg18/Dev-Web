@@ -3,6 +3,8 @@ import { Pessoa } from '../model/pessoa.entity';
 import { Autenticacao } from '../model/autenticacao.entity';
 import { PessoaService } from './pessoa.service';
 import * as bcrypt from 'bcrypt';
+import { Atendente } from '../model/atendente.entity';
+import { AtendenteService } from './atendente.service';
 
 @Injectable()
 export class AutenticacaoService {
@@ -11,20 +13,32 @@ export class AutenticacaoService {
   async ValidaUser(body: any) {
     let busca = new Autenticacao();
     let pessoa = new Pessoa();
+    let atendente = new Atendente();
+    let atendenteservice = new AtendenteService();
     let pessoaService = new PessoaService();
     let senha: any;
     try {
       pessoa = await pessoaService.readOne(body.cpf);
       if (pessoa != undefined) {
+        atendente = await atendenteservice.readOne(pessoa.idpessoa);
         busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });
         senha = bcrypt.compareSync(body.senha, busca.senha);
-        if (senha) {
-          return pessoa;
-        } else {
-          return 'Senha incorreta';
+        if (atendente != undefined) {
+          if (senha) {
+            return atendente;
+          } else {
+            return 'Senha incorreta';
+          }
         }
-      } else {
-        return 'nome de usuario incorreto';
+        if (atendente == undefined) {
+          if (senha) {
+            return pessoa;
+          } else {
+            return 'Senha incorreta';
+          }
+        } else {
+          return 'nome de usuario incorreto';
+        }
       }
     } catch (err) {
       throw new Error(

@@ -74,7 +74,6 @@ export class JogoService {
         jogo.classificacao = body.classificacao;
         jogo.multiplayer = body.multiplayer;
         jogo.produtora = body.produtora;
-        console.log(jogo);
         return await Jogo.save(jogo);
       }
     } catch (err) {

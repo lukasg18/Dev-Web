@@ -16,7 +16,6 @@ export class GeneroService {
     try {
       let busca = await Genero.findOne({ nome: body.nome });
       if (busca != undefined) {
-        console.log(busca)
         return busca;
       } else {
         genero.nome = body.nome;

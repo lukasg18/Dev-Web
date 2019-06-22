@@ -1,10 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Locacao } from '../model/locacao.entity';
-import { Pagarme } from '../gateways/pagarme';
-import { PessoaJogo } from '../model/pessoa_jogo.entity';
-import { LOADIPHLPAPI } from 'dns';
-import { Pessoa } from 'locadora-pessoal/model/pessoa.entity';
-import { Pagamento } from 'locadora-pessoal/model/pagamento.entity';
+import { Pagamento } from '../model/pagamento.entity';
 
 const moment = require('moment')
 

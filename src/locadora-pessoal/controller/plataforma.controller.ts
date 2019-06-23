@@ -8,7 +8,7 @@ import {
   HttpStatus,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiModelProperty, ApiImplicitBody } from '@nestjs/swagger';
+import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitParam } from '@nestjs/swagger';
 import { PlataformaService } from '../service/plataforma.service';
 
 class PostPlataforma{
@@ -47,11 +47,16 @@ export class PlataformaController {
     }
   }
 
-  @Delete('/plataforma')
-  @ApiImplicitBody({ name: 'body', required: true, type: PostPlataforma })
-  async remove(@Res() res, @Body() body: any) {
+  @Delete('/plataforma/:idplataforma')
+  @ApiImplicitParam({
+    name: 'idplataforma',
+    description: 'ID da plataforma',
+    required: true,
+    type: Number,
+  })
+  async remove(@Res() res, @Param() idplataforma: any) {
     try {
-      let plataforma = await this.plataformaService.Drop(body);
+      let plataforma = await this.plataformaService.Drop(idplataforma);
       if (plataforma != undefined) {
         res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {

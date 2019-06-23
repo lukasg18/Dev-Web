@@ -105,7 +105,7 @@ export class PessoaService {
     let busca = new Pessoa();
     try {
       busca = await Pessoa.findOne({
-        cpf: body.cpf,
+        idpessoa: body.idpessoa,
       });
       busca.status = statusEnum.inativo;
       return await Pessoa.save(busca);

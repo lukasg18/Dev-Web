@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { PessoaService } from '../service/pessoa.service';
-import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitQuery } from '@nestjs/swagger';
+import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitQuery, ApiImplicitParam } from '@nestjs/swagger';
 
 class PostEstado{
   @ApiModelProperty()
@@ -123,21 +123,25 @@ export class PessoaController {
     }
   }
 
-  @Delete('/pessoa')
-  @ApiImplicitBody({ name: 'body', required: false, type: PostPessoa })
-  async remove(@Res() res, @Body() body: any) {
+  @Delete('/pessoa/:idpessoa')
+  @ApiImplicitParam({
+    name: 'idpessoa',
+    description: 'ID da pessoa',
+    required: true,
+    type: Number,
+  })
+  async remove(@Res() res, @Param() idpessoa: any) {
     try {
-      let pessoa = await this.pessoaService.Drop(body);
-      console.log(pessoa)
+      let pessoa = await this.pessoaService.Drop(idpessoa);
       if (pessoa != undefined) {
         res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .send('Nenhuma pessoa encontrado na busca');
       }
     } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");
+      res.status(HttpStatus.BAD_GATEWAY).send(err);
     }
   }
 

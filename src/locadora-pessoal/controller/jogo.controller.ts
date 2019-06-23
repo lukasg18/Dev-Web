@@ -7,8 +7,9 @@ import {
   HttpStatus,
   Query,
   Delete,
+  Param,
 } from '@nestjs/common';
-import { ApiUseTags, ApiImplicitQuery, ApiModelProperty, ApiImplicitBody } from '@nestjs/swagger';
+import { ApiUseTags, ApiImplicitQuery, ApiModelProperty, ApiImplicitBody, ApiImplicitParam } from '@nestjs/swagger';
 import { JogoService } from '../service/jogo.service';
 
 class PostPlataforma{
@@ -105,11 +106,16 @@ export class JogoController {
     }
   }
 
-  @Delete('/jogo')
-  @ApiImplicitBody({ name: 'body', required: true, type: PostJogo })
-  async remove(@Res() res, @Body() body: any) {
+  @Delete('/jogo/:idjogo')
+  @ApiImplicitParam({
+    name: 'idjogo',
+    description: 'ID do jogo',
+    required: true,
+    type: Number,
+  })
+  async remove(@Res() res, @Param() idjogo: any) {
     try {
-      let jogo = await this.jogoService.Drop(body);
+      let jogo = await this.jogoService.Drop(idjogo);
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {

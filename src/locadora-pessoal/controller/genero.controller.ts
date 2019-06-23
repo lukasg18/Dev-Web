@@ -8,7 +8,7 @@ import {
   HttpStatus,
   Delete,
 } from '@nestjs/common';
-import { ApiUseTags, ApiModelProperty, ApiImplicitBody } from '@nestjs/swagger';
+import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitParam } from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
 
 class PostGenero{
@@ -47,11 +47,16 @@ export class GeneroController {
     }
   }
 
-  @Delete('/genero')
-  @ApiImplicitBody({ name: 'body', required: true, type: PostGenero })
-  async remove(@Res() res, @Body() body: any) {
+  @Delete('/genero/:idgenero')
+  @ApiImplicitParam({
+    name: 'idgenero',
+    description: 'ID do genero',
+    required: true,
+    type: Number,
+  })
+  async remove(@Res() res, @Param() idgenero: any) {
     try {
-      let genero = await this.generoService.Drop(body);
+      let genero = await this.generoService.Drop(idgenero);
       if (genero != undefined) {
         res.status(HttpStatus.OK).send("Inativado com sucesso!");
       } else {

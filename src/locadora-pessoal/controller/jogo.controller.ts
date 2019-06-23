@@ -117,7 +117,8 @@ export class JogoController {
     try {
       let jogo = await this.jogoService.Drop(idjogo);
       if (jogo != undefined) {
-        res.status(HttpStatus.OK).send("Inativado com sucesso!");
+        // res.status(HttpStatus.OK).send("Inativado com sucesso!");
+        res.status(HttpStatus.OK).json({"message":"Inativado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)

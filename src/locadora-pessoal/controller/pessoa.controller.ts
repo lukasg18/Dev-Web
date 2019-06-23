@@ -134,11 +134,12 @@ export class PessoaController {
     try {
       let pessoa = await this.pessoaService.Drop(idpessoa);
       if (pessoa != undefined) {
-        res.status(HttpStatus.OK).send("Inativado com sucesso!");
+        // res.status(HttpStatus.OK).send(JSON.parse('{"message":"Inativado com sucesso!"}'));
+        res.status(HttpStatus.OK).json({"message":"Inativado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhuma pessoa encontrado na busca');
+          .json({"message":'Nenhuma pessoa encontrado na busca'});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);

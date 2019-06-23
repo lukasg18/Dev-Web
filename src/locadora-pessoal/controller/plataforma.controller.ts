@@ -58,7 +58,8 @@ export class PlataformaController {
     try {
       let plataforma = await this.plataformaService.Drop(idplataforma);
       if (plataforma != undefined) {
-        res.status(HttpStatus.OK).send("Inativado com sucesso!");
+        // res.status(HttpStatus.OK).send("Inativado com sucesso!");
+        res.status(HttpStatus.OK).json({"message":"Inativado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)

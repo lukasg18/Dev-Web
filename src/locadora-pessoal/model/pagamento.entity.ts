@@ -12,6 +12,7 @@ import {
 import { Locacao } from './locacao.entity';
 import { ModalidadePagamento } from './modalidade-pagamento.entity';
 import { Assinatura } from './assinatura.entity';
+import { CartaoCredito } from './cartao-credito.entity';
 
 export enum tipoPagamento {
   locacao = 1,
@@ -78,12 +79,12 @@ export class Pagamento extends BaseEntity {
   assinatura: Assinatura[];
  
 
-  // @ManyToOne(type => ModalidadePagamento, modalidadepagamento => modalidadepagamento.pagamento, {
-  //   eager: true,
-  //   cascade: true,
-  //   onDelete: 'CASCADE',
-  // })
-  // @JoinColumn({ name: 'idmodalidadepagamento' })
-  // modalidadepagamento: ModalidadePagamento;
+  @ManyToOne(type => CartaoCredito, {
+    eager: true,
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'idcartao' })
+  cartaocredito: CartaoCredito;
 
 }

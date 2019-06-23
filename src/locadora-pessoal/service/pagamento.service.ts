@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Pagamento } from '../model/pagamento.entity';
-
+import { Pagamento, metodoPagamento } from '../model/pagamento.entity';
+import { CartaoCredito } from '../model/cartao-credito.entity'
 const moment = require('moment')
 
 @Injectable()
@@ -16,11 +16,11 @@ export class PagamentoService {
 
   async Create(body: any): Promise<Pagamento | any> {
     try {
-        const {tipo, modelo} = body
+        const {tipo} = body
    
         switch (tipo){
             case 1:
-                return this.pagarLocacao(modelo)
+                return this.pagarLocacao(body)
             default:
                 return ""
         }
@@ -35,22 +35,35 @@ export class PagamentoService {
     }
   }
 
-  async pagarLocacao(locacao) {
-      
+  async pagarLocacao(data) {
+    
+    const { modelo: locacao } = data 
+
     const { pessoajogo } = locacao
 
     const periodoLocacao = {
         dataLocacao: locacao.datalocacao,
         dataDevolucao: locacao.datadevolucao
     }
-
-    const valorTotal = this.calcularPreco({preco: pessoajogo.preco, periodoLocacao})
-    const pagamento = new Pagamento()
-    pagamento.valor = valorTotal
-
     
+    const valorTotal = this.calcularPreco({preco: pessoajogo.preco, periodoLocacao})
 
+    const pagamento = new Pagamento()
+    pagamento.tipopagamento = 1
+    pagamento.status = 0
+    pagamento.valor = valorTotal
+    pagamento.metodopagamento = data.metodoPagamento
 
+    if (data.metodoPagamento = 1 ) {
+      const cartao = await CartaoCredito.findOne({where: {idcartao: data.idcartao}})
+
+      if (!cartao ) {
+        // to do
+      }
+      pagamento.cartaocredito = cartao
+    }
+    
+    return Pagamento.save(pagamento)
   }
 
   calcularPreco({preco, periodoLocacao}: any): any {

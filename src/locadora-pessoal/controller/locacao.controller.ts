@@ -19,7 +19,7 @@ import {
     @Post('/locacao')
     async createOne(@Res() res, @Body() body: any) {
       try {
-        const {idCartao, metodoPagamento, ...dadosLocacao} = body
+        const {idcartao, metodoPagamento, ...dadosLocacao} = body
 
         const locacao = await this.locacaoService.Create(dadosLocacao);
 
@@ -30,17 +30,17 @@ import {
         }
         const pagamento = this.pagamentoService.Create({
           tipo: 1, 
-          idCartao, 
+          idcartao, 
           metodoPagamento,
           modelo: locacao
         })
         
-        if (locacao != undefined) {
+        if (pagamento) {
           res.status(HttpStatus.OK).send("cadastrado com sucesso!");
         } else {
           res
             .status(HttpStatus.NOT_FOUND)
-            .send('Nenhum jogo encontrado na busca');
+            .send('Não foi possível realizar o pagamento');
         }
       } catch (err) {
         res.status(HttpStatus.BAD_GATEWAY).send(err);

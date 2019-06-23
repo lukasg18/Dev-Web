@@ -1,22 +1,27 @@
 import {
-  Get,
   Controller,
-  Param,
   Post,
   Body,
   Res,
   HttpStatus,
 } from '@nestjs/common';
-import { PessoaService } from '../service/pessoa.service';
-import { Pessoa } from '../model/pessoa.entity';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiModelProperty, ApiImplicitBody } from '@nestjs/swagger';
 import { AutenticacaoService } from '../service/autenticacao.service';
+
+class PostData {
+  @ApiModelProperty()
+  cpf: string;
+  @ApiModelProperty()
+  senha: string;
+}
+
 @ApiUseTags('Autenticacao')
 @Controller()
 export class AutenticacaoController {
   constructor(private readonly authService: AutenticacaoService) {}
 
   @Post('/auth')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostData })
   async createOne(@Res() res, @Body() body: any) {
     try {
       let pessoa = await this.authService.ValidaUser(body)
@@ -25,12 +30,10 @@ export class AutenticacaoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .send('Nenhum usuario encontrado');
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
     }
   }
-
-
 }

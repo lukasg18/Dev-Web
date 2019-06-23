@@ -1,16 +1,55 @@
 import {
   Get,
   Controller,
-  Param,
   Post,
   Body,
   Res,
   HttpStatus,
   Query,
+  Delete,
+  Param,
 } from '@nestjs/common';
-import { ApiUseTags, ApiImplicitQuery } from '@nestjs/swagger';
-import { GeneroService } from '../service/genero.service';
+import { ApiUseTags, ApiImplicitQuery, ApiModelProperty, ApiImplicitBody, ApiImplicitParam } from '@nestjs/swagger';
 import { JogoService } from '../service/jogo.service';
+
+class PostPlataforma{
+  @ApiModelProperty()
+  nome:string
+  @ApiModelProperty()
+  status:number
+}
+
+class PostGenero{
+  @ApiModelProperty()
+  numero:number
+  @ApiModelProperty()
+  status:number
+}
+
+class PostJogo {
+  @ApiModelProperty()
+  idjogo?: string;
+  @ApiModelProperty()
+  nome: string;
+  @ApiModelProperty()
+  urlimagem: string;
+  @ApiModelProperty()
+  anolancamento:string
+  @ApiModelProperty()
+  descricao:string
+  @ApiModelProperty()
+  classificacao:string
+  @ApiModelProperty()
+  multiplayer:boolean
+  @ApiModelProperty()
+  produtora:string
+  @ApiModelProperty()
+  genero:[PostGenero]
+  @ApiModelProperty()
+  plataforma:PostPlataforma[]
+  @ApiModelProperty()
+  status:number
+}
 @ApiUseTags('Jogo')
 @Controller()
 export class JogoController {
@@ -51,6 +90,7 @@ export class JogoController {
   }
 
   @Post('/jogo')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostJogo })
   async createOne(@Res() res, @Body() body: any) {
     try {
       let jogo = await this.jogoService.Create(body);
@@ -66,13 +106,19 @@ export class JogoController {
     }
   }
 
-  @Post('/jogo/remove')
-  async remove(@Res() res, @Body() body: any) {
+  @Delete('/jogo/:idjogo')
+  @ApiImplicitParam({
+    name: 'idjogo',
+    description: 'ID do jogo',
+    required: true,
+    type: Number,
+  })
+  async remove(@Res() res, @Param() idjogo: any) {
     try {
-      let jogo = await this.jogoService.Drop(body);
-      console.log(jogo)
+      let jogo = await this.jogoService.Drop(idjogo);
       if (jogo != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        // res.status(HttpStatus.OK).send("Inativado com sucesso!");
+        res.status(HttpStatus.OK).json({"message":"Inativado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)

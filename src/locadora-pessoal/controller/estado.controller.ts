@@ -13,18 +13,4 @@ export class EstadoController {
     return this.estadoService.readAll();
   }
  
-  @Get('/estado/:id')
-  readOne(@Param() param):any {
-    return this.estadoService.readOne(param.id);
-  }
-
-  @Post('/estado')
-  Create(@Body() body):any {
-    return this.estadoService.Create(body);
-  }
-
-  @Post('/estado/update')
-  public updateOne(@Body() body: Estado) {
-    return this.estadoService.Update(body);
-  }
 }

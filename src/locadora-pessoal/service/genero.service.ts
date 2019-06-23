@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Genero } from '../model/genero.entity';
+import { Genero, statusEnum } from '../model/genero.entity';
 
 @Injectable()
 export class GeneroService {
@@ -14,39 +14,49 @@ export class GeneroService {
   async Create(body: any) {
     let genero = new Genero();
     try {
-      let busca = await Genero.findOne({ nome: body.nome });
+      let busca = await Genero.findOne({ idgenero: body.idgenero });
       if (busca != undefined) {
-        return busca;
+        return this.Update(body, busca)
       } else {
         genero.nome = body.nome;
+        genero.status = 0
         return await Genero.save(genero);
       }
     } catch (err) {
       throw new Error(
-        `Erro ao verificar genero\n Erro: ${err.name}\n Mensagem: ${
+        `Erro ao criar genero\n Erro: ${err.name}\n Mensagem: ${
           err.message
         }\n Os parametros estao certos?`,
       );
     }
   }
 
-  async Update(body) {
-    let e = new Genero();
+  async Update(body, busca) {
     try {
-      e.idgenero = body.idgenero;
-      let busca = await Genero.findOne({ idgenero: e.idgenero });
       busca.nome = body.nome;
+      busca.status = body.status;
       return await Genero.save(busca);
     } catch (err) {
       throw new Error(
-        `Erro ao verificar genero\n Erro: ${err.name}\n Mensagem: ${
+        `Erro ao atualizar genero\n Erro: ${err.name}\n Mensagem: ${
           err.message
         }\n Os parametros estao certos?`,
       );
     }
   }
 
-  Drop(body: any): Promise<Genero> {
-    throw new Error('Method not implemented.');
+  async Drop(body: any){
+    let busca = new Genero();
+    try {
+      busca = await Genero.findOne({ idgenero: body.idgenero });
+      busca.status = statusEnum.inativo;
+      return await Genero.save(busca);
+    } catch (err) {
+      throw new Error(
+        `Erro ao inativar Plataforma\n Erro: ${err.name}\n Mensagem: ${
+          err.message
+        }\n Os parametros estao certos?`,
+      );
+    }
   }
 }

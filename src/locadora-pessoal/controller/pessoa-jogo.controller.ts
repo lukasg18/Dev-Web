@@ -7,13 +7,28 @@ import {
   Res,
   HttpStatus,
   Query,
+  Delete,
 } from '@nestjs/common';
 import {
   ApiUseTags,
   ApiImplicitParam,
   ApiImplicitQuery,
+  ApiModelProperty,
+  ApiImplicitBody,
 } from '@nestjs/swagger';
 import { PessoaJogoService } from '../service/pessoa-jogo.service';
+
+class PostPessoaJogo{
+  @ApiModelProperty()
+  idjogo:number
+  @ApiModelProperty()
+  idpessoa:number
+  @ApiModelProperty()
+  preco:number
+  @ApiModelProperty()
+  vitrine:boolean
+}
+
 @ApiUseTags('pessoa-jogo')
 @Controller()
 export class PessoaJogoController {
@@ -100,6 +115,7 @@ export class PessoaJogoController {
   }
 
   @Post('/pessoajogo')
+  @ApiImplicitBody({ name: 'body', required: true, type: PostPessoaJogo })
   async createOne(@Res() res, @Body() body: any) {
     try {
       let jogo = await this.pessoajogoService.Create(body);
@@ -112,23 +128,6 @@ export class PessoaJogoController {
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
-    }
-  }
-
-  @Post('/pessoajogo/remove')
-  async remove(@Res() res, @Body() body: any) {
-    try {
-      let jogo = await this.pessoajogoService.Drop(body);
-      console.log(jogo);
-      if (jogo != undefined) {
-        res.status(HttpStatus.OK).send('cadastrado com sucesso!');
-      } else {
-        res
-          .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
-      }
-    } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send('CPF ja cadastrado!');
     }
   }
 }

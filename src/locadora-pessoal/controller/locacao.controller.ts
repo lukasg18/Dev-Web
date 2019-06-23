@@ -1,12 +1,9 @@
 import {
-    Get,
     Controller,
-    Param,
     Post,
     Body,
     Res,
     HttpStatus,
-    Query,
   } from '@nestjs/common';
   import { ApiUseTags } from '@nestjs/swagger';
   import { LocacaoService } from '../service/locacao.service';

@@ -10,7 +10,6 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Locacao } from './locacao.entity';
-import { ModalidadePagamento } from './modalidade-pagamento.entity';
 import { Assinatura } from './assinatura.entity';
 import { CartaoCredito } from './cartao-credito.entity';
 

@@ -20,10 +20,4 @@ export class ModalidadePagamento extends BaseEntity {
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################
-
-  @OneToMany(
-    type => Pagamento,
-    pagamento => pagamento.modalidadepagamento,
-  )
-  pagamento: Pagamento[];
 }

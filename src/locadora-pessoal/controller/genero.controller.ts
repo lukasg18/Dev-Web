@@ -39,9 +39,9 @@ export class GeneroController {
     required: false,
     type: Number,
   })
-  root(@Res() res, @Query() body: any) {
+  async root(@Res() res, @Query() body: any) {
     try {
-      let genero =  this.generoService.readAll(body);
+      let genero = await this.generoService.readAll(body);
       if (genero != undefined) {
         res.status(HttpStatus.OK).send(genero);
       } else {

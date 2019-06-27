@@ -4,14 +4,14 @@ import { Plataforma, statusEnum } from '../model/plataforma.entity';
 @Injectable()
 export class PlataformaService {
   async readAll(params) {
-    return Plataforma.find({
-      where: this.getWhere(params),
+    return await Plataforma.find({
+      where: await this.getWhere(params),
       skip: params.pag * 10,
       take: 10,
     });
   }
 
-  getWhere(query) {
+  async getWhere(query) {
     const keysPermitidas = ['status'];
     let where = '';
     Object.keys(query)

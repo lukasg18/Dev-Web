@@ -4,14 +4,14 @@ import { Genero, statusEnum } from '../model/genero.entity';
 @Injectable()
 export class GeneroService {
   async readAll(params) {
-    return Genero.find({
-      where: this.getWhere(params),
+    return await Genero.find({
+      where: await this.getWhere(params),
       skip: params.pag * 10,
       take: 10,
     });
   }
 
-  getWhere(query) {
+  async getWhere(query) {
     const keysPermitidas = ['status'];
     let where = '';
     Object.keys(query)

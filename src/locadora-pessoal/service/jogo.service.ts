@@ -12,7 +12,7 @@ export class JogoService {
   }
 
   async searchByFull(params) {
-    return Jogo.find({
+    return await Jogo.find({
       join: {
         alias: 'jogo',
         leftJoinAndSelect: {
@@ -20,13 +20,13 @@ export class JogoService {
           plataforma: 'jogo.plataforma',
         },
       },
-      where: this.getWhere(params),
+      where: await this.getWhere(params),
       skip: params.pag * 10,
       take: 10,
     });
   }
 
-  getWhere(query) {
+  async getWhere(query) {
     const keysPermitidas = ['jogo', 'genero', 'plataforma', 'status'];
     let where = '';
     Object.keys(query)

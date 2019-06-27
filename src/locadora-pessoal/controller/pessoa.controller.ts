@@ -99,7 +99,7 @@ export class PessoaController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum pessoa encontrado na busca');
+          .json({"message":"Nenhuma pessoa encontrada!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
@@ -112,11 +112,11 @@ export class PessoaController {
     try {
       let pessoa = await this.pessoaService.Create(body);
       if (pessoa != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).json({"message":"Cadastrado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .json({"message":"Nenhuma pessoa encontrada!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);

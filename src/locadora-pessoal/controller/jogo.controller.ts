@@ -95,11 +95,11 @@ export class JogoController {
     try {
       let jogo = await this.jogoService.Create(body);
       if (jogo != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).json({"message":"Cadastrado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
+          .json({"message":"erro ao salvar o jogo!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);

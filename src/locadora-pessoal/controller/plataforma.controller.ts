@@ -36,11 +36,11 @@ export class PlataformaController {
     try {
       let plataforma = await this.plataformaService.Create(body);
       if (plataforma != undefined) {
-        res.status(HttpStatus.OK).send("Cadastrado com sucesso!");
+        res.status(HttpStatus.OK).json({"message":"Cdastrado com sucesso!"});
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .json({"message":"Nenhuuma plataforma encontrada!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
@@ -63,10 +63,10 @@ export class PlataformaController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .json({"message":"Nenhuma plataforma encontrada!"});
       }
     } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");
+      res.status(HttpStatus.BAD_GATEWAY).json({"message":"Plataforma ja cadastrada"});
     }
   }
 

@@ -1,6 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Pagamento, metodoPagamento } from '../model/pagamento.entity';
 import { CartaoCredito } from '../model/cartao-credito.entity'
+import { Pagarme } from '../gateways/pagarme';
+
 const moment = require('moment')
 
 @Injectable()
@@ -35,7 +37,7 @@ export class PagamentoService {
     }
   }
 
-  async pagarLocacao(data) {
+  async pagarLocacao(data): Promise<any> {
     
     const { modelo: locacao } = data 
 
@@ -62,8 +64,14 @@ export class PagamentoService {
       }
       pagamento.cartaocredito = cartao
     }
+
+    const pagamentoResponse =  await  Pagamento.save(pagamento)
+
+    const pagarme = new Pagarme();
+
+    const pagamentoPagarme = await pagarme.createTransaction({pagamento:pagamentoResponse, locacao })
     
-    return Pagamento.save(pagamento)
+    return pagamentoResponse
   }
 
   calcularPreco({preco, periodoLocacao}: any): any {

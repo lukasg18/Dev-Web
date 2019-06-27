@@ -1,4 +1,30 @@
+import { Pagamento } from "locadora-pessoal/model/pagamento.entity";
+import { Cep } from "locadora-pessoal/model/cep.entity";
+import { Jogo } from "locadora-pessoal/model/jogo.entity";
+
+
 const Axios = require('axios')
+
+interface TransactionPagarMe {
+  amount?: number;
+  card_id?: string;
+  payment_method?: string;
+  postback_url?: string;
+  async?: boolean;
+  installments?: number;
+  boleto_expiration_date?: string;
+  soft_descriptor?: string;
+  capture?: boolean;
+  boleto_instructions?: string;
+  split_rules?: any[];
+  customer?: any;
+  billing?: any;
+  shipping?: any;
+  items?: any[];
+  metadata?: any;
+  session?: string;
+  local_time?: string;
+}
 
 export class Pagarme {
     public gatewayEndPoint: string;
@@ -30,5 +56,68 @@ export class Pagarme {
     async createRecipient (data: any): Promise<any> {
       const pagarmeResponse = await this._client.post("recipients", data)
       return pagarmeResponse.data
-  }
+    }
+      
+    async createTransaction (data:any): Promise<any> {
+
+      const {pagamento, locacao} = data
+      const {pessoa} = pagamento.cartaocredito
+      
+      const {cep: endereco } = pessoa 
+      
+      const billing = {
+        name: pessoa.nome,
+        address: {
+          street: endereco.logradouro !== null ? endereco.logradouro : endereco.bairro.nome  ,
+          city: endereco.bairro.municipio.nome,
+          state: endereco.bairro.municipio.estado.nome,
+          zipcode: endereco.numero,
+          country: 'br',
+          neighborhood: endereco.bairro.nome
+        }
+      };
+
+      const jogo = await Jogo.findOne({where: {idjogo: locacao.pessoajogo.idjogo}})
+      
+      const item = {
+        id: jogo.idjogo.toString(),
+        title: jogo.nome,
+        unit_price: pagamento.valor,
+        quantity: 1,
+        tangible: true
+      };
+      
+      let transaction = {
+        async: false,
+        amount: (pagamento.valor) * 100,
+        billing,
+        items: [item],
+        metadata: pagamento
+      } as TransactionPagarMe;
+
+      if (pagamento.metodopagamento === 1) {
+        const { cartaocredito } = pagamento
+  
+        if (cartaocredito) {
+          transaction.card_id = 'card_cjxac27t30hlt3x6e7qac3279' ;
+          transaction.payment_method = "credit_card";
+        }
+      } else {
+        // transaction.payment_method = "boleto";
+        // transaction.boleto_instructions = order.boleto_instructions;
+        // transaction.boleto_expiration_date = invoice.boleto_expiration_date;
+        // transaction.customer.documents = [{ type: billingInfo.document_type, number: billingInfo.document }];
+        // transaction.customer.name = billingInfo.name;
+        // transaction.capture = true;
+      }
+      
+      try {
+        const { data: pagarmeResponse } = await this._client.post("transactions", transaction);
+        
+      } catch (e) {
+        console.log(e.response.data);
+        
+      }
+    }
+
 }

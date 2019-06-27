@@ -25,7 +25,10 @@ export class Pagarme {
 
     async createBankAccount (data: any): Promise<any> {
         const pagarmeResponse = await this._client.post("bank_accounts", data)
-        console.log(pagarmeResponse.data);
         return pagarmeResponse.data
     }
+    async createRecipient (data: any): Promise<any> {
+      const pagarmeResponse = await this._client.post("recipients", data)
+      return pagarmeResponse.data
+  }
 }

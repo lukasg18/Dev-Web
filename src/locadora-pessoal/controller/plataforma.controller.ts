@@ -33,9 +33,9 @@ export class PlataformaController {
     required: false,
     type: Number,
   })
-  async root(@Res() res, @Query() body: any) {
+  root(@Res() res, @Query() body: any) {
     try {
-      let genero = await this.plataformaService.readAll(body);
+      let genero = this.plataformaService.readAll(body);
       if (genero != undefined) {
         res.status(HttpStatus.OK).send(genero);
       } else {

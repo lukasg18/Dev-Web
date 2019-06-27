@@ -1,6 +1,7 @@
 import { Pagamento } from "locadora-pessoal/model/pagamento.entity";
 import { Cep } from "locadora-pessoal/model/cep.entity";
 import { Jogo } from "locadora-pessoal/model/jogo.entity";
+const moment = require('moment')
 
 
 const Axios = require('axios')
@@ -71,13 +72,28 @@ export class Pagarme {
           street: endereco.logradouro !== null ? endereco.logradouro : endereco.bairro.nome  ,
           city: endereco.bairro.municipio.nome,
           state: endereco.bairro.municipio.estado.nome,
-          zipcode: endereco.numero,
+          zipcode: endereco.numero ,
           country: 'br',
           neighborhood: endereco.bairro.nome
         }
       };
 
       const jogo = await Jogo.findOne({where: {idjogo: locacao.pessoajogo.idjogo}})
+
+      const customer = {
+        external_id: (pessoa.idpessoa).toString(),
+        type: "individual",
+        country: "br",
+        name: pessoa.nome,
+        email: pessoa.email,
+        documents: [
+            {
+                type: "cpf",
+                number: pessoa.cpf
+            }
+        ],
+        phone_numbers: ["+5527995038835"]
+      }
       
       const item = {
         id: jogo.idjogo.toString(),
@@ -91,33 +107,27 @@ export class Pagarme {
         async: false,
         amount: (pagamento.valor) * 100,
         billing,
+        customer,
         items: [item],
         metadata: pagamento
       } as TransactionPagarMe;
 
       if (pagamento.metodopagamento === 1) {
         const { cartaocredito } = pagamento
-  
+                
         if (cartaocredito) {
-          transaction.card_id = 'card_cjxac27t30hlt3x6e7qac3279' ;
+          transaction.card_id = cartaocredito.idPagarMe ;
           transaction.payment_method = "credit_card";
         }
       } else {
-        // transaction.payment_method = "boleto";
-        // transaction.boleto_instructions = order.boleto_instructions;
-        // transaction.boleto_expiration_date = invoice.boleto_expiration_date;
-        // transaction.customer.documents = [{ type: billingInfo.document_type, number: billingInfo.document }];
-        // transaction.customer.name = billingInfo.name;
-        // transaction.capture = true;
+        transaction.payment_method = "boleto";
+        transaction.boleto_expiration_date = (moment().add(3, 'days')).format('YYYY-MM-DD');
+        transaction.capture = true;
       }
       
-      try {
-        const { data: pagarmeResponse } = await this._client.post("transactions", transaction);
-        
-      } catch (e) {
-        console.log(e.response.data);
-        
-      }
+      const { data: pagarmeResponse } = await this._client.post("transactions", transaction);
+      
+      return pagarmeResponse
     }
 
 }

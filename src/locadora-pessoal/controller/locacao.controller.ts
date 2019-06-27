@@ -25,7 +25,7 @@ import {
             .status(HttpStatus.NOT_FOUND)
             .send('Não foi possível cadastrar');
         }
-        const pagamento = this.pagamentoService.Create({
+        const pagamento = await this.pagamentoService.Create({
           tipo: 1, 
           idcartao, 
           metodoPagamento,
@@ -33,7 +33,7 @@ import {
         })
         
         if (pagamento) {
-          res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+          res.status(HttpStatus.OK).send(locacao);
         } else {
           res
             .status(HttpStatus.NOT_FOUND)

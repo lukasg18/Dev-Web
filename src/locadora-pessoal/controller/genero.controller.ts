@@ -7,17 +7,24 @@ import {
   Res,
   HttpStatus,
   Delete,
+  Query,
 } from '@nestjs/common';
-import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitParam } from '@nestjs/swagger';
+import {
+  ApiUseTags,
+  ApiModelProperty,
+  ApiImplicitBody,
+  ApiImplicitParam,
+  ApiImplicitQuery,
+} from '@nestjs/swagger';
 import { GeneroService } from '../service/genero.service';
 
-class PostGenero{
+class PostGenero {
   @ApiModelProperty()
   idgenero?: string;
   @ApiModelProperty()
-  nome:string
+  nome: string;
   @ApiModelProperty()
-  status:number
+  status: number;
 }
 
 @ApiUseTags('Genero')
@@ -26,21 +33,38 @@ export class GeneroController {
   constructor(private readonly generoService: GeneroService) {}
 
   @Get('/genero')
-  root(): any {
-    return this.generoService.readAll();
+  @ApiImplicitQuery({
+    name: 'status',
+    description: '0 - ativo 1 - inativo',
+    required: false,
+    type: Number,
+  })
+  async root(@Res() res, @Query() body: any) {
+    try {
+      let genero = await this.generoService.readAll(body);
+      if (genero != undefined) {
+        res.status(HttpStatus.OK).send(genero);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: 'Nenhum genero encontrado' });
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err);
+    }
   }
-  
+
   @Post('/genero')
   @ApiImplicitBody({ name: 'body', required: true, type: PostGenero })
   async createOne(@Res() res, @Body() body: any) {
     try {
       let genero = await this.generoService.Create(body);
       if (genero != undefined) {
-        res.status(HttpStatus.OK).send("cadastrado com sucesso!");
+        res.status(HttpStatus.OK).send(genero);
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .json({ message: 'Erro ao criar o genero!' });
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
@@ -59,15 +83,16 @@ export class GeneroController {
       let genero = await this.generoService.Drop(idgenero);
       if (genero != undefined) {
         // res.status(HttpStatus.OK).send("Inativado com sucesso!");
-        res.status(HttpStatus.OK).json({"message":"Inativado com sucesso!"});
+        res.status(HttpStatus.OK).json({ message: 'Inativado com sucesso!' });
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .json({ message: 'Nenhum resultado encontrado!' });
       }
     } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");
+      res
+        .status(HttpStatus.BAD_GATEWAY)
+        .json({ message: 'cpf ja cadastrado!' });
     }
   }
-
 }

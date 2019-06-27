@@ -74,6 +74,12 @@ export class JogoController {
     required: false,
     type: String,
   })
+  @ApiImplicitQuery({
+    name: 'status',
+    description: '0 - ativo 1 - inativo',
+    required: false,
+    type: Number,
+  })
   async readOne(@Res() res, @Query() query) {
     try {
       let jogo = await this.jogoService.searchByFull(query)
@@ -82,7 +88,7 @@ export class JogoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
+          .json({"message":"Nenhum resultado encontrado!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
@@ -122,10 +128,10 @@ export class JogoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
+          .json({"message":"Nenhum resultado encontrado!"});
       }
     } catch (err) {
-      res.status(HttpStatus.BAD_GATEWAY).send("CPF ja cadastrado!");
+      res.status(HttpStatus.BAD_GATEWAY).send(err);
     }
   }
 

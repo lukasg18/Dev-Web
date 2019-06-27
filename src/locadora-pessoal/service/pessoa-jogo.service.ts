@@ -74,7 +74,8 @@ export class PessoaJogoService {
       'bairro',
       'municipio',
       'estado',
-      'pessoajogo',
+      'vitrine',
+      'status'
     ];
     let where = '';
     Object.keys(query)
@@ -88,8 +89,11 @@ export class PessoaJogoService {
           where = where.substr(0, where.length - 3);
           where += ') and ';
         } else {
-          if (key == 'pessoajogo') {
-            where += `${key}.vitrine = '${query[key]}' and `
+          if (key == 'vitrine') {
+            where += `pessoajogo.${key} = '${query[key]}' and `
+          }
+          if (key == 'status') {
+            where += `pessoajogo.${key} = '${query[key]}' and `
           } else {
             where += `${key}.nome ILIKE '%${query[key]}%' and `;
           }

@@ -3,8 +3,25 @@ import { Plataforma, statusEnum } from '../model/plataforma.entity';
 
 @Injectable()
 export class PlataformaService {
-  async readAll() {
-    return await Plataforma.find();
+  async readAll(params) {
+    return Plataforma.find({
+      where: this.getWhere(params),
+      skip: params.pag * 10,
+      take: 10,
+    });
+  }
+
+  getWhere(query) {
+    const keysPermitidas = ['status'];
+    let where = '';
+    Object.keys(query)
+      .filter(key => keysPermitidas.indexOf(key) !== -1)
+      .forEach(key => {
+        if (key == 'status') {
+          where += `Plataforma.status = '${query[key]}' and `;
+        }
+      });
+    return where.substr(0, where.length - 4);
   }
 
   async readOne(nome: string) {

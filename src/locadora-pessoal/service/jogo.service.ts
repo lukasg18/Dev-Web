@@ -27,7 +27,7 @@ export class JogoService {
   }
 
   getWhere(query) {
-    const keysPermitidas = ['jogo', 'genero', 'plataforma'];
+    const keysPermitidas = ['jogo', 'genero', 'plataforma', 'status'];
     let where = '';
     Object.keys(query)
       .filter(key => keysPermitidas.indexOf(key) !== -1)
@@ -40,7 +40,11 @@ export class JogoService {
           where = where.substr(0, where.length - 3);
           where += ') and ';
         } else {
-          where += `${key}.nome ILIKE '%${query[key]}%' and `;
+          if (key == 'status') {
+            where += `jogo.status = '${query[key]}' and `;
+          } else {
+            where += `${key}.nome ILIKE '%${query[key]}%' and `;
+          }
         }
       });
     return where.substr(0, where.length - 4);

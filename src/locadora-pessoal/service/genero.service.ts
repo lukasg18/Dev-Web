@@ -3,8 +3,25 @@ import { Genero, statusEnum } from '../model/genero.entity';
 
 @Injectable()
 export class GeneroService {
-  async readAll() {
-    return await Genero.find();
+  async readAll(params) {
+    return Genero.find({
+      where: this.getWhere(params),
+      skip: params.pag * 10,
+      take: 10,
+    });
+  }
+
+  getWhere(query) {
+    const keysPermitidas = ['status'];
+    let where = '';
+    Object.keys(query)
+      .filter(key => keysPermitidas.indexOf(key) !== -1)
+      .forEach(key => {
+        if (key == 'status') {
+          where += `Genero.status = '${query[key]}' and `;
+        }
+      });
+    return where.substr(0, where.length - 4);
   }
 
   async readOne(nome: string) {
@@ -16,10 +33,10 @@ export class GeneroService {
     try {
       let busca = await Genero.findOne({ idgenero: body.idgenero });
       if (busca != undefined) {
-        return this.Update(body, busca)
+        return this.Update(body, busca);
       } else {
         genero.nome = body.nome;
-        genero.status = 0
+        genero.status = 0;
         return await Genero.save(genero);
       }
     } catch (err) {
@@ -45,7 +62,7 @@ export class GeneroService {
     }
   }
 
-  async Drop(body: any){
+  async Drop(body: any) {
     let busca = new Genero();
     try {
       busca = await Genero.findOne({ idgenero: body.idgenero });

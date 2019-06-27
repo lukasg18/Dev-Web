@@ -27,12 +27,7 @@ export class PessoaService {
   }
 
   getWhere(query) {
-    const keysPermitidas = [
-      'status',
-      'bairro',
-      'municipio',
-      'estado',
-    ];
+    const keysPermitidas = ['status', 'bairro', 'municipio', 'estado'];
     let where = '';
     Object.keys(query)
       .filter(key => keysPermitidas.indexOf(key) !== -1)
@@ -67,6 +62,7 @@ export class PessoaService {
     let authservice = new AutenticacaoService();
     let busca = new Pessoa();
     let cep = new Cep();
+    let error = '{"message":"Favor inserir um cpf"}';
     try {
       await estadoservice.Create(body);
       await municipioservice.Create(body);
@@ -77,20 +73,24 @@ export class PessoaService {
       if (busca != undefined) {
         return this.Update(body, busca);
       } else {
-        cep = await cepservice.readOne(body.cep.numero);
-        pessoa.nome = body.nome;
-        pessoa.sexo = body.sexo;
-        pessoa.cpf = body.cpf;
-        pessoa.cep = cep;
-        pessoa.datanascimento = body.datanascimento;
-        pessoa.pontuacao = 5;
-        pessoa.nomeusuario = body.nomeusuario;
-        pessoa.email = body.email;
-        pessoa.status = 0;
-        pessoa.urlimagem = body.urlimagem;
-        await Pessoa.save(pessoa);
-        await authservice.Create(body);
-        return pessoa;
+        if (body.cpf.length != 0) {
+          cep = await cepservice.readOne(body.cep.numero);
+          pessoa.nome = body.nome;
+          pessoa.sexo = body.sexo;
+          pessoa.cpf = body.cpf;
+          pessoa.cep = cep;
+          pessoa.datanascimento = body.datanascimento;
+          pessoa.pontuacao = 5;
+          pessoa.nomeusuario = body.nomeusuario;
+          pessoa.email = body.email;
+          pessoa.status = 0;
+          pessoa.urlimagem = body.urlimagem;
+          await Pessoa.save(pessoa);
+          await authservice.Create(body);
+          return pessoa;
+        } else {
+          return JSON.parse(error);
+        }
       }
     } catch (err) {
       throw new Error(

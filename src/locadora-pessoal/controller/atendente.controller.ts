@@ -80,7 +80,7 @@ export class AtendenteController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum atendente encontrado na busca');
+          .json({"message":"Nenhum atendente encontrada!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
@@ -88,7 +88,7 @@ export class AtendenteController {
   }
 
   @Post('/atendente')
-  @ApiImplicitBody({ name: 'body', required: true, type: PostAtendente })
+  // @ApiImplicitBody({ name: 'body', required: true, type: PostAtendente })
   async Create(@Res() res, @Body() body) {
     try {
       let atendente = await this.atendenteService.Create(body);
@@ -97,7 +97,7 @@ export class AtendenteController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('erro ao salvar atendente');
+          .json({"message":"Nenhum atendente encontrada!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);

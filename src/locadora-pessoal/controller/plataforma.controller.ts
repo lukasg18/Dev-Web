@@ -7,8 +7,9 @@ import {
   Res,
   HttpStatus,
   Delete,
+  Query,
 } from '@nestjs/common';
-import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitParam } from '@nestjs/swagger';
+import { ApiUseTags, ApiModelProperty, ApiImplicitBody, ApiImplicitParam, ApiImplicitQuery } from '@nestjs/swagger';
 import { PlataformaService } from '../service/plataforma.service';
 
 class PostPlataforma{
@@ -26,8 +27,25 @@ export class PlataformaController {
   constructor(private readonly plataformaService: PlataformaService) {}
 
   @Get('/plataforma')
-  root(): any {
-    return this.plataformaService.readAll();
+  @ApiImplicitQuery({
+    name: 'status',
+    description: '0 - ativo 1 - inativo',
+    required: false,
+    type: Number,
+  })
+  async root(@Res() res, @Query() body: any) {
+    try {
+      let genero = await this.plataformaService.readAll(body);
+      if (genero != undefined) {
+        res.status(HttpStatus.OK).send(genero);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: 'Nenhuma plataforma encontrada!' });
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err);
+    }
   }
 
   @Post('/plataforma')

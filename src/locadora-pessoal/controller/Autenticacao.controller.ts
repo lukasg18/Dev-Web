@@ -30,7 +30,7 @@ export class AutenticacaoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum usuario encontrado');
+          .json({"message":"Nenhum resultado encontrado!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);

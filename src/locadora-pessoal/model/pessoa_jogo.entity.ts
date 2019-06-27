@@ -11,6 +11,10 @@ import { Pessoa } from './pessoa.entity';
 import { Jogo } from './jogo.entity';
 import { Locacao } from './locacao.entity';
 
+export enum statusEnum {
+  ativo = 0,
+  inativo = 1,
+}
 @Entity()
 export class PessoaJogo extends BaseEntity {
   @PrimaryColumn()
@@ -24,6 +28,9 @@ export class PessoaJogo extends BaseEntity {
 
   @Column({ nullable: false})
   vitrine: boolean;
+
+  @Column({ nullable: true})
+  status: statusEnum;
 
   //###################################################################
   //############################ RELAÇÕES #############################

@@ -27,6 +27,8 @@ class PostPessoaJogo{
   preco:number
   @ApiModelProperty()
   vitrine:boolean
+  @ApiModelProperty()
+  status:Number
 }
 
 @ApiUseTags('pessoa-jogo')
@@ -54,7 +56,7 @@ export class PessoaJogoController {
     type: String,
   })
   @ApiImplicitQuery({
-    name: 'pessoajogo',
+    name: 'vitrine',
     description: 'campo true ou false para mostrar jogos disponiveis',
     required: false,
     type: Boolean,
@@ -77,6 +79,12 @@ export class PessoaJogoController {
     required: false,
     type: String,
   })
+  @ApiImplicitQuery({
+    name: 'status',
+    description: '0 - ativo, 1 - inativo',
+    required: false,
+    type: String,
+  })
   async readAll(@Res() res, @Query() query) {
     try {
       let jogo = await this.pessoajogoService.searchByFull(query);
@@ -85,7 +93,7 @@ export class PessoaJogoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
+          .json({"message":"Nenhum resultado encontrado!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
@@ -107,7 +115,7 @@ export class PessoaJogoController {
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
+          .json({"message":"Nenhum resultado encontrado!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
@@ -120,11 +128,11 @@ export class PessoaJogoController {
     try {
       let jogo = await this.pessoajogoService.Create(body);
       if (jogo != undefined) {
-        res.status(HttpStatus.OK).send('cadastrado com sucesso!');
+        res.status(HttpStatus.OK).send(jogo);
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
-          .send('Nenhum jogo encontrado na busca');
+          .json({"message":"Nenhum resultado encontrado!"});
       }
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);

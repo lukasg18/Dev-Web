@@ -13,21 +13,21 @@ import { ApiUseTags, ApiImplicitQuery, ApiModelProperty, ApiImplicitBody, ApiImp
 import { RecomendacaoService } from '../service/recomendacao.service';
 
 
-@ApiUseTags('Jogo')
+@ApiUseTags('Recomendacao')
 @Controller()
 export class RecomendacaoController {
   constructor(private readonly recomendacaoService: RecomendacaoService) {}
 
-  @Get('/recomendacao')
-  @ApiImplicitQuery({
+  @Get('/recomendacao/:idpessoa')
+  @ApiImplicitParam({
     name: 'idpessoa',
-    description: '0 - ativo 1 - inativo',
+    description: 'passar um id de pessoa',
     required: false,
     type: Number,
   })
-  async readOne(@Res() res, @Query() query) {
+  async readOne(@Res() res, @Param() query) {
     try {
-      let jogo = await this.recomendacaoService.searchByFull(query)
+      let jogo = await this.recomendacaoService.getTopGames(query);
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send(jogo);
       } else {

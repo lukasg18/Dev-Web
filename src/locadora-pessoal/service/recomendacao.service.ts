@@ -4,7 +4,7 @@ import { Plataforma } from '../model/plataforma.entity';
 import { PlataformaService } from './plataforma.service';
 import { GeneroService } from './genero.service';
 import { Genero } from '../model/genero.entity';
-import { Locacao } from 'locadora-pessoal/model/locacao.entity';
+import { Locacao } from '../model/locacao.entity';
 
 @Injectable()
 export class RecomendacaoService {

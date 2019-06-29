@@ -92,14 +92,9 @@ export class AutenticacaoService {
 
   async SearchByEmail(body: any) {
     let pessoa = new Pessoa();
-    let error = '{"message":"email nao encontrado"}';
     try {
       pessoa = await Pessoa.findOne({ email: body.email });
-      if (pessoa != undefined) {
-        return pessoa;
-      } else {
-        return JSON.parse(error);
-      }
+      return pessoa;
     } catch (err) {
       throw new Error(
         `Erro ao verificar usuario\n Erro: ${err.name}\n Mensagem: ${

@@ -27,6 +27,8 @@ import { ContaBancariaService } from './service/conta-bancaria.service';
 import { LocacaoService } from './service/locacao.service';
 import { LocacaoController } from './controller/locacao.controller';
 import { PagamentoService } from './service/pagamento.service';
+import { RecomendacaoService } from './service/recomendacao.service';
+import { RecomendacaoController } from './controller/recomendacao.controller';
 
 const modelProvider = [...databaseProviders];
 
@@ -44,7 +46,8 @@ const modelService = [
   PessoaJogoService,
   ContaBancariaService,
   PagamentoService,
-  LocacaoService
+  LocacaoService,
+  RecomendacaoService
 ];
 
 const modelController = [
@@ -60,6 +63,7 @@ const modelController = [
   PessoaJogoController,
   ContaBancariaController,
   LocacaoController,
+  RecomendacaoController,
  ];
 
 @Module({

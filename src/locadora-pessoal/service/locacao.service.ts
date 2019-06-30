@@ -20,8 +20,8 @@ export class LocacaoService {
     let buscaPessoa;
     let datacorrente = moment().format()
     console.log(datacorrente)
-    buscaPessoa = await Pessoa.find({ idpessoa: id });
-    return Locacao.findOne({
+    buscaPessoa = await Pessoa.findOne({ idpessoa: id });
+    return Locacao.find({
       join: {
         alias: 'locacao',
         leftJoinAndSelect: {

@@ -18,7 +18,7 @@ export class AutenticacaoService {
     let pessoaService = new PessoaService();
     let senha: any;
     try {
-      pessoa = await Pessoa.findOne({cpf: body.cpf});
+      pessoa = await Pessoa.findOne({ cpf: body.cpf });
       if (pessoa != undefined) {
         atendente = await atendenteservice.readOne(pessoa.idpessoa);
         busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });
@@ -91,13 +91,25 @@ export class AutenticacaoService {
   }
 
   async SearchByEmail(body: any) {
+    let busca = new Autenticacao();
     let pessoa = new Pessoa();
+    let atendente = new Atendente();
+    let atendenteservice = new AtendenteService();
+    let pessoaService = new PessoaService();
+    let senha: any;
     try {
       pessoa = await Pessoa.findOne({ email: body.email });
-      return pessoa;
+      if (pessoa != undefined) {
+        atendente = await atendenteservice.readOne(pessoa.idpessoa);
+        if (atendente != undefined) {
+          return atendente;
+        } else {
+          return pessoa;
+        }
+      }
     } catch (err) {
       throw new Error(
-        `Erro ao verificar usuario\n Erro: ${err.name}\n Mensagem: ${
+        `Erro ao validar usuario\n Erro: ${err.name}\n Mensagem: ${
           err.message
         }\n Os parametros estao certos?`,
       );

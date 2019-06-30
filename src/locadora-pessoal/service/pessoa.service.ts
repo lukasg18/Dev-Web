@@ -68,8 +68,9 @@ export class PessoaService {
       await municipioservice.Create(body);
       await bairroservice.Create(body);
       await cepservice.Create(body);
-
+      console.log(body)
       busca = await Pessoa.findOne({ cpf: body.cpf });
+      console.log(body)
       if (busca != undefined) {
         return this.Update(body, busca);
       } else {

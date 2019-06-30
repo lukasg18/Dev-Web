@@ -59,9 +59,6 @@ export class ContaBancaria extends BaseEntity {
   @Column({nullable: true})
   recebedorPagarme: string
 
-  @Column({nullable: true})
-  recebedorPagarme: string
-
   //###################################################################
   //############################ RELAÇÕES #############################
   //###################################################################

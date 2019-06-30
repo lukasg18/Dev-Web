@@ -72,7 +72,7 @@ export class Pagarme {
           street: endereco.logradouro !== null ? endereco.logradouro : endereco.bairro.nome  ,
           city: endereco.bairro.municipio.nome,
           state: endereco.bairro.municipio.estado.nome,
-          zipcode: endereco.numero ,
+          zipcode: "29160182" ,
           country: 'br',
           neighborhood: endereco.bairro.nome
         }
@@ -89,7 +89,7 @@ export class Pagarme {
         documents: [
             {
                 type: "cpf",
-                number: pessoa.cpf
+                number: "14869122731"
             }
         ],
         phone_numbers: ["+5527995038835"]
@@ -116,7 +116,7 @@ export class Pagarme {
         const { cartaocredito } = pagamento
                 
         if (cartaocredito) {
-          transaction.card_id = cartaocredito.idPagarMe ;
+          transaction.card_id = "card_cjxac27t30hlt3x6e7qac3279" ;
           transaction.payment_method = "credit_card";
         }
       } else {
@@ -125,9 +125,10 @@ export class Pagarme {
         transaction.capture = true;
       }
       
+     
       const { data: pagarmeResponse } = await this._client.post("transactions", transaction);
-      
-      return pagarmeResponse
+    
+      return "pagarmeResponse"
     }
 
 }

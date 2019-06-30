@@ -54,7 +54,7 @@ export class PagamentoService {
     pagamento.tipopagamento = 1
     pagamento.status = 0
     pagamento.valor = valorTotal
-    pagamento.metodopagamento = data.metodoPagamento
+    pagamento.metodopagamento = data.metodopagamento
 
     if (data.metodoPagamento = 1 ) {
       const cartao = await CartaoCredito.findOne({where: {idcartao: data.idcartao}})
@@ -66,7 +66,7 @@ export class PagamentoService {
     }
 
     const pagamentoResponse =  await  Pagamento.save(pagamento)
-
+    
     const pagarme = new Pagarme();
 
     const pagamentoPagarme = await pagarme.createTransaction({pagamento:pagamentoResponse, locacao })

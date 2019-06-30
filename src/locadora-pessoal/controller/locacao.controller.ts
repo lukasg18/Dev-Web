@@ -16,8 +16,7 @@ import {
     @Post('/locacao')
     async createOne(@Res() res, @Body() body: any) {
       try {
-        const {idcartao, metodoPagamento, ...dadosLocacao} = body
-
+        const {idcartao, metodopagamento, ...dadosLocacao} = body
         const locacao = await this.locacaoService.Create(dadosLocacao);
 
         if (!locacao) {
@@ -28,7 +27,7 @@ import {
         const pagamento = await this.pagamentoService.Create({
           tipo: 1, 
           idcartao, 
-          metodoPagamento,
+          metodopagamento,
           modelo: locacao
         })
         

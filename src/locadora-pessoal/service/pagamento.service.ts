@@ -1,6 +1,8 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Pagamento, metodoPagamento } from '../model/pagamento.entity';
 import { CartaoCredito } from '../model/cartao-credito.entity'
+import { Pagarme } from '../gateways/pagarme';
+
 const moment = require('moment')
 
 @Injectable()
@@ -35,7 +37,7 @@ export class PagamentoService {
     }
   }
 
-  async pagarLocacao(data) {
+  async pagarLocacao(data): Promise<any> {
     
     const { modelo: locacao } = data 
 
@@ -52,7 +54,7 @@ export class PagamentoService {
     pagamento.tipopagamento = 1
     pagamento.status = 0
     pagamento.valor = valorTotal
-    pagamento.metodopagamento = data.metodoPagamento
+    pagamento.metodopagamento = data.metodopagamento
 
     if (data.metodoPagamento = 1 ) {
       const cartao = await CartaoCredito.findOne({where: {idcartao: data.idcartao}})
@@ -62,8 +64,14 @@ export class PagamentoService {
       }
       pagamento.cartaocredito = cartao
     }
+
+    const pagamentoResponse =  await  Pagamento.save(pagamento)
     
-    return Pagamento.save(pagamento)
+    const pagarme = new Pagarme();
+
+    const pagamentoPagarme = await pagarme.createTransaction({pagamento:pagamentoResponse, locacao })
+    
+    return pagamentoResponse
   }
 
   calcularPreco({preco, periodoLocacao}: any): any {

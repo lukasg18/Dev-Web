@@ -46,7 +46,6 @@ export class LocacaoService {
       locacao.datalocacao = body.datalocacao;
       locacao.status = 1;
 
-
       const pessoa = await Pessoa.findOne({where: {idpessoa: body.pessoa}})
       const pessoaJogo = await PessoaJogo.findOne({ where: { idpessoa: body.idpessoa, idjogo: body.idjogo} });
       
@@ -58,7 +57,7 @@ export class LocacaoService {
       locacao.pessoajogo = pessoaJogo
                 
     
-
+      
       return Locacao.save(locacao)
             
     } catch (err) {

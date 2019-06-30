@@ -49,8 +49,8 @@ export class PessoaService {
       });
     return where.substr(0, where.length - 4);
   }
-  async readOne(cpf: string) {
-    return await Pessoa.findOne({ cpf: cpf });
+  async readOne(cpf: number) {
+    return await Pessoa.findOne({ idpessoa: cpf });
   }
 
   async Create(body: any): Promise<Pessoa | any> {

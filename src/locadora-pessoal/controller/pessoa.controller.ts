@@ -146,4 +146,27 @@ export class PessoaController {
     }
   }
 
+
+  @Get('/pessoa/:idpessoa')
+  @ApiImplicitParam({
+    name: 'idpessoa',
+    description: 'id da pessoa',
+    required: true,
+    type: Number,
+  })
+  async readPessoa(@Res() res, @Param() idpessoa) {
+    try {
+      let jogo = await this.pessoaService.readOne(idpessoa.idpessoa)
+      if (jogo != undefined) {
+        res.status(HttpStatus.OK).send(jogo);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: 'Nenhum resultado encontrado!' });
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
+    }
+  }
+
 }

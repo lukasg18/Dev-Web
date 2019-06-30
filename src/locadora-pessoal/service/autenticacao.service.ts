@@ -18,7 +18,7 @@ export class AutenticacaoService {
     let pessoaService = new PessoaService();
     let senha: any;
     try {
-      pessoa = await pessoaService.readOne(body.cpf);
+      pessoa = await Pessoa.findOne({cpf: body.cpf});
       if (pessoa != undefined) {
         atendente = await atendenteservice.readOne(pessoa.idpessoa);
         busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });

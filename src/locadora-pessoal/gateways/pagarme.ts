@@ -1,6 +1,4 @@
-import { Pagamento } from "locadora-pessoal/model/pagamento.entity";
-import { Cep } from "locadora-pessoal/model/cep.entity";
-import { Jogo } from "locadora-pessoal/model/jogo.entity";
+import { Jogo } from "../model/jogo.entity";
 const moment = require('moment')
 
 

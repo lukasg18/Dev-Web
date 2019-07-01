@@ -4,8 +4,10 @@ import {
   Body,
   Res,
   HttpStatus,
+  Get,
+  Param,
 } from '@nestjs/common';
-import { ApiUseTags } from '@nestjs/swagger';
+import { ApiUseTags, ApiImplicitParam } from '@nestjs/swagger';
 import { LocacaoService } from '../service/locacao.service';
 import { PagamentoService } from '../service/pagamento.service';
 
@@ -42,4 +44,27 @@ export class LocacaoController {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
     }
   }  
+
+  @Get('/locacao/:idpessoa')
+  @ApiImplicitParam({
+    name: 'idpessoa',
+    description: 'id da pessoa',
+    required: true,
+    type: Number,
+  })
+  async readOne(@Res() res, @Param() idpessoa) {
+    try {
+      let jogo = await this.locacaoService.readUser(idpessoa.idpessoa)
+      if (jogo != undefined) {
+        res.status(HttpStatus.OK).send(jogo);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .json({ message: 'Nenhum resultado encontrado!' });
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
+    }
+  }
+  
 }

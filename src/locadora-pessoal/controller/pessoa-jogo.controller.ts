@@ -122,6 +122,34 @@ export class PessoaJogoController {
     }
   }
 
+  @Delete('/pessoajogo/:idpessoa/:idjogo')
+  @ApiImplicitParam({
+    name: 'idpessoa',
+    description: 'id da pessoa',
+    required: true,
+    type: Number,
+  })
+  @ApiImplicitParam({
+    name: 'idjogo',
+    description: 'id do jogo',
+    required: true,
+    type: Number,
+  })
+  async deletePessoaJogo(@Res() res, @Param() params) {
+    try {
+      let jogo = await this.pessoajogoService.Drop(params)
+      if (jogo != undefined) {
+        res.status(HttpStatus.OK).send(jogo);
+      } else {
+        res
+          .status(HttpStatus.NOT_FOUND)
+          .json({"message":"Nenhum resultado encontrado!"});
+      }
+    } catch (err) {
+      res.status(HttpStatus.BAD_GATEWAY).send(err.message);
+    }
+  }
+
   @Post('/pessoajogo')
   @ApiImplicitBody({ name: 'body', required: true, type: PostPessoaJogo })
   async createOne(@Res() res, @Body() body: any) {

@@ -60,7 +60,7 @@ export class PessoaJogoService {
           plataforma: 'jogo.plataforma',
         },
       },
-      where: {idpessoa: params.idpessoa},
+      where: { idpessoa: params.idpessoa },
       skip: params.pag * 10,
       take: 10,
     });
@@ -75,7 +75,7 @@ export class PessoaJogoService {
       'municipio',
       'estado',
       'vitrine',
-      'status'
+      'status',
     ];
     let where = '';
     Object.keys(query)
@@ -90,10 +90,10 @@ export class PessoaJogoService {
           where += ') and ';
         } else {
           if (key == 'vitrine') {
-            where += `pessoajogo.${key} = '${query[key]}' and `
+            where += `pessoajogo.${key} = '${query[key]}' and `;
           }
           if (key == 'status') {
-            where += `pessoajogo.${key} = '${query[key]}' and `
+            where += `pessoajogo.${key} = '${query[key]}' and `;
           } else {
             where += `${key}.nome ILIKE '%${query[key]}%' and `;
           }
@@ -106,7 +106,20 @@ export class PessoaJogoService {
     throw new Error('Method not implemented.');
   }
 
-  Drop(body: any): Promise<Jogo> {
-    throw new Error('Method not implemented.');
+  async Drop(body: any): Promise<Jogo> {
+    let busca;
+    try {
+      busca = await PessoaJogo.findOne({
+        where: { idjogo: body.idjogo, idpessoa: body.idpessoa },
+      });
+      busca.status = 1;
+      return await PessoaJogo.save(busca);
+    } catch (err) {
+      throw new Error(
+        `Erro ao inativar Jogo\n Erro: ${err.name}\n Mensagem: ${
+          err.message
+        }\n Os parametros estao certos?`,
+      );
+    }
   }
 }

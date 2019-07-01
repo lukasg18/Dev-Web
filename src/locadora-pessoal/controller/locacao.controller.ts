@@ -18,7 +18,7 @@ import {
       try {
         const {idcartao, metodopagamento, ...dadosLocacao} = body
         const locacao = await this.locacaoService.Create(dadosLocacao);
-
+        
         if (!locacao) {
           res
             .status(HttpStatus.NOT_FOUND)
@@ -31,8 +31,9 @@ import {
           modelo: locacao
         })
         
+        
         if (pagamento) {
-          res.status(HttpStatus.OK).send(locacao);
+          res.status(HttpStatus.OK).send({boleto: pagamento.boleto, ...locacao});
         } else {
           res
             .status(HttpStatus.NOT_FOUND)

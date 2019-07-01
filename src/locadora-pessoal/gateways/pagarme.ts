@@ -127,8 +127,8 @@ export class Pagarme {
       
      
       const { data: pagarmeResponse } = await this._client.post("transactions", transaction);
-    
-      return "pagarmeResponse"
+            
+      return pagarmeResponse
     }
 
 }

@@ -71,7 +71,13 @@ export class PagamentoService {
 
     const pagamentoPagarme = await pagarme.createTransaction({pagamento:pagamentoResponse, locacao })
     
-    return pagamentoResponse
+    return { 
+      boleto : { 
+        url: pagamentoPagarme.boleto_url, 
+        codigo: pagamentoPagarme.boleto_barcode
+      },
+      pagamentoResponse 
+    }
   }
 
   calcularPreco({preco, periodoLocacao}: any): any {

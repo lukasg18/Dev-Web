@@ -14,27 +14,30 @@ import { PagamentoService } from '../service/pagamento.service';
 @ApiUseTags('Locacao')
 @Controller()
 export class LocacaoController {
-  constructor(private readonly locacaoService: LocacaoService, private readonly pagamentoService: PagamentoService) {}
+  constructor(
+    private readonly locacaoService: LocacaoService,
+    private readonly pagamentoService: PagamentoService,
+  ) {}
   @Post('/locacao')
   async createOne(@Res() res, @Body() body: any) {
     try {
-      const {idcartao, metodopagamento, ...dadosLocacao} = body
+      const { idcartao, metodopagamento, ...dadosLocacao } = body;
       const locacao = await this.locacaoService.Create(dadosLocacao);
 
       if (!locacao) {
-        res
-          .status(HttpStatus.NOT_FOUND)
-          .send('Não foi possível cadastrar');
+        res.status(HttpStatus.NOT_FOUND).send('Não foi possível cadastrar');
       }
       const pagamento = await this.pagamentoService.Create({
-        tipo: 1, 
-        idcartao, 
+        tipo: 1,
+        idcartao,
         metodopagamento,
-        modelo: locacao
-      })
-      
+        modelo: locacao,
+      });
+
       if (pagamento) {
-        res.status(HttpStatus.OK).send(locacao);
+        res
+          .status(HttpStatus.OK)
+          .send({ boleto: pagamento.boleto, ...locacao });
       } else {
         res
           .status(HttpStatus.NOT_FOUND)
@@ -43,7 +46,7 @@ export class LocacaoController {
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send(err);
     }
-  }  
+  }
 
   @Get('/locacao/:idpessoa')
   @ApiImplicitParam({
@@ -54,7 +57,7 @@ export class LocacaoController {
   })
   async readOne(@Res() res, @Param() idpessoa) {
     try {
-      let jogo = await this.locacaoService.readUser(idpessoa.idpessoa)
+      let jogo = await this.locacaoService.readUser(idpessoa.idpessoa);
       if (jogo != undefined) {
         res.status(HttpStatus.OK).send(jogo);
       } else {
@@ -66,5 +69,4 @@ export class LocacaoController {
       res.status(HttpStatus.BAD_GATEWAY).send(err.message);
     }
   }
-  
 }

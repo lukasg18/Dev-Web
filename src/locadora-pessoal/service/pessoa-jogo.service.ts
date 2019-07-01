@@ -65,7 +65,7 @@ export class PessoaJogoService {
       take: 10,
     });
   }
-
+//  teste
   getWhere(query) {
     const keysPermitidas = [
       'jogo',

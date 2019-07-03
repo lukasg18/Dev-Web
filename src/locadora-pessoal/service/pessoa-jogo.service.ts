@@ -18,6 +18,7 @@ export class PessoaJogoService {
         pessoaJogo.idpessoa = body.idpessoa;
         pessoaJogo.preco = body.preco;
         pessoaJogo.vitrine = true;
+        pessoaJogo.status = 0;
         return await PessoaJogo.save(pessoaJogo);
       }
     } catch (err) {

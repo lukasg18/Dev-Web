@@ -56,6 +56,7 @@ export class AutenticacaoService {
     let pessoa = new Pessoa();
     try {
       pessoa = await Pessoa.findOne({cpf: body.cpf});
+      console.log(pessoa)
       busca = await Autenticacao.findOne({ idpessoa: pessoa.idpessoa });
       if (busca != undefined) {
         return busca;

@@ -62,15 +62,12 @@ export class PessoaService {
     let authservice = new AutenticacaoService();
     let busca = new Pessoa();
     let cep = new Cep();
-    let error = '{"message":"Favor inserir um cpf"}';
     try {
       await estadoservice.Create(body);
       await municipioservice.Create(body);
       await bairroservice.Create(body);
       await cepservice.Create(body);
-      console.log(body)
       busca = await Pessoa.findOne({ cpf: body.cpf });
-      console.log(body)
       if (busca != undefined) {
         return this.Update(body, busca);
       } else {
@@ -89,8 +86,6 @@ export class PessoaService {
           await Pessoa.save(pessoa);
           await authservice.Create(body);
           return pessoa;
-        } else {
-          return JSON.parse(error);
         }
       }
     } catch (err) {
